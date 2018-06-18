@@ -1,0 +1,8 @@
+parameters:
+    excludes_analyse:
+        - %rootDir%/../../../src/**/Generated/*
+    ignoreErrors:
+        - '#on an unknown class Mouf.#'
+#        - '#Call to an undefined method Drupal\\Core\\Datetime\\DrupalDateTime#'
+#        - '#Call to an undefined method Swift_SmtpTransport#'
+#        - '#Access to an undefined property Uneo\\Wsdl\\Prestations\\paiement#'

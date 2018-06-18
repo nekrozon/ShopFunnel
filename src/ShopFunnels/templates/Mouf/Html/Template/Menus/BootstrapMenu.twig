@@ -1,0 +1,11 @@
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    {%  if this.children is not empty %}
+        <ul class="nav navbar-nav side-nav" style="left:0;top: 60px;">
+            {% for child in this.children %}
+            <li class="active">
+                {{ toHtml(child) }}
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
