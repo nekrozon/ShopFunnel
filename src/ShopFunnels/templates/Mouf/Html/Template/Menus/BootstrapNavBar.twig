@@ -1,0 +1,40 @@
+<div class="navbar-header">
+    {% if this.title %}
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{constant('ROOT_URL')}}{{ this.titleLink|raw }}" style="padding: 4px;"><img src="../../../../../../src/Public/img/logo.png" style="width:170px"></a>
+    {% endif %}
+</div>
+<ul class="nav navbar-right ">
+
+        <li class="dropdown">
+
+            {% if this.children is not empty %}
+            <ul class="dropdown-menu">
+                {% for child in this.children %}
+                    <li>
+                        {{ toHtml(child) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endif %}
+</ul>
+<div class="login">
+    <button class="btn pull-right" style="height: 60px;"><span>Account Settings</span><i class="material-icons"><i class="fa fa-cog"material-icons" aria-hidden="true"></i></i>
+        {% if this.children is not empty %}
+            <ul class="dropdown">
+                {% for child in this.children %}
+                    <li>
+                        {{ toHtml(child) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </button>
+</div>
+

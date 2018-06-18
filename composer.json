@@ -1,0 +1,35 @@
+{
+  "require": {
+    "mouf/mouf": "~2.0.0",
+    "mouf/mvc.splash": "~8.0",
+    "mouf/database.tdbm": "~5.0",
+    "mouf/database.patcher": "~2.2",
+    "mouf/security.simplelogincontroller": "^5.0",
+    "mouf/security.userservice-splash": "~8.0",
+    "mouf/security.rightsservice-splash": "8.0.x-dev",
+    "mouf/security.daos.tdbm": "~1.0",
+    "oscarotero/psr7-middlewares": "~3.16",
+    "monolog/monolog": "^1.21",
+    "mouf/security.user-management-ui": "~1.0",
+    "mouf/security.forgot-your-password": "1.0.x-dev",
+    "thecodingmachine/swift-twig-mail-template": "5.0.x-dev",
+    "mouf/html.renderer": "^1.1",
+    "mouf/utils.i18n.fine.file-translator": "^4.0",
+    "mouf/utils.i18n.fine.manage.bo": "^4.0",
+    "http-interop/http-middleware": "^0.4.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.0",
+    "phpstan/phpstan": "^0.6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "ShopFunnels\\": "src/ShopFunnels"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "phpstan": "phpstan analyse src -c phpstan.neon --level=4 --no-progress -vvv"
+  }
+}

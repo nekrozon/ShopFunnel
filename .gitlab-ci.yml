@@ -1,0 +1,25 @@
+image: tetraweb/php:7.1
+
+before_script:
+# Install dependencies
+- bash ci/docker_install.sh
+
+test:app:
+  script:
+  - /root/.composer/vendor/bin/phpmetrics src/ --exclude=src/ShopFunnels/Model/Bean/Generated\|src/ShopFunnels/Model/Dao/Generated --report-html=phpmetrics
+  - vendor/bin/phpunit
+  - composer phpstan | tee phpstan_results.txt
+#  - security-checker security:check
+  - /root/.composer/vendor/bin/php-cs-fixer fix src/ --rules=@PSR2 --dry-run | tee cs-fixer.txt
+  after_script:
+    - /root/washingmachine/washingmachine run -v
+  artifacts:
+    when: always
+    expire_in: 1 month
+    paths:
+    - phpstan_results.txt
+    - phpmetrics
+    - coverage
+    - clover.xml
+    - crap4j.xml
+    - cs-fixer.txt
