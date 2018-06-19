@@ -1287,6 +1287,17 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
       'setTemplateRenderer' => 'bootstrapRenderer',
       'setDefaultRenderer' => 'defaultRenderer',
     ),
+    'setterProperties' => 
+    array (
+      'setTitle' => 
+      array (
+        'value' => 'Shop Funnels',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'cascadingLanguageDetection' => 
   array (
@@ -1638,12 +1649,8 @@ return $driver;
       'setWebLibraries' => 
       array (
         0 => 'rootUrlInlineWebLibrary',
-        1 => 'messageServiceLibrary',
-        2 => 'component.jquery',
-        3 => 'component.bootstrap',
-        4 => 'jQueryLibrary',
-        5 => 'jQueryHistory',
-        6 => 'evolugridLibrary',
+        1 => 'shopFunnelsLibraryManager',
+        2 => 'messageServiceLibrary',
       ),
     ),
     'constructor' => 
@@ -1657,6 +1664,9 @@ return $driver;
         array (
         ),
       ),
+    ),
+    'setterProperties' => 
+    array (
     ),
   ),
   'doctrineDbalConfiguration' => 
@@ -2737,6 +2747,41 @@ return $driver;
   array (
     'class' => 'Mouf\\Utils\\Session\\SessionManager\\DefaultSessionManager',
     'external' => false,
+  ),
+  'shopFunnelsLibraryManager' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'src/Public/js/vendor.js',
+          1 => 'src/Public/js/main.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+          0 => 'src/Public/css/vendor.css',
+          1 => 'src/Public/css/main.css',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'simpleLoginController' => 
   array (
@@ -3946,6 +3991,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getSessionManager() {
 	 	return MoufManager::getMoufManager()->get('sessionManager');
+	 }
+
+	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getShopFunnelsLibraryManager() {
+	 	return MoufManager::getMoufManager()->get('shopFunnelsLibraryManager');
 	 }
 
 	/**

@@ -8,6 +8,7 @@ use Mouf\Mvc\Splash\Annotations\Delete;
 use Mouf\Mvc\Splash\Annotations\URL;
 use Mouf\Html\Template\TemplateInterface;
 use Mouf\Html\HtmlElement\HtmlBlock;
+use Mouf\Html\HtmlElement\HtmlFromFile;
 use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
@@ -55,7 +56,7 @@ class RootController
      */
     public function index()
     {
-        $this->content->addHtmlElement(new TwigTemplate($this->twig, 'views/root/index.twig', array("message"=>"world")));
+        $this->content->addHtmlElement(new HtmlFromFile('./src/Front/Angular/views/home.html'));
 
         return new HtmlResponse($this->template);
     }
@@ -79,8 +80,8 @@ class RootController
     {
         $config = [
             'ShopUrl' => 'midnightpoint.myshopify.com',
-            'ApiKey' => '224d2671a9b7bb4b7f34f4792ddeeef8',
-            'SharedSecret' => 'd6bd62ea42c4a2cc4aabd9dbbf6a3b07',
+            'ApiKey' => '63ad8bb37986eddbc73da803fa591e7c',
+            'SharedSecret' => '9e7c060a1849ad2dbadf2fb71dae7b9e',
         ];
         ShopifySDK::config($config);
         $token = AuthHelper::createAuthRequest('read_products');
