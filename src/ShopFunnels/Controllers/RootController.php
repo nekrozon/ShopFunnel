@@ -11,12 +11,15 @@ use Mouf\Html\HtmlElement\HtmlBlock;
 use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
+use Zend\Diactoros\Response\JsonResponse;
+use PHPShopify\ShopifySDK;
+use PHPShopify\AuthHelper;
 
 /**
- * TODO: write controller comment
+ * RootController Class
  */
-class RootController {
-
+class RootController
+{
     /**
      * The template used by this controller.
      * @var TemplateInterface
@@ -35,9 +38,8 @@ class RootController {
      */
     private $twig;
 
-
     /**
-     * Controller's constructor.
+     * RootController's constructor.
      * @param TemplateInterface $template The template used by this controller
      * @param HtmlBlock $content The main content block of the page
      * @param Twig_Environment $twig The Twig environment (used to render Twig templates)
@@ -51,12 +53,38 @@ class RootController {
     /**
      * @URL("/")
      */
-    public function index() {
-        // TODO: write content of action here
-
-        // Let's add the twig file to the template.
+    public function index()
+    {
         $this->content->addHtmlElement(new TwigTemplate($this->twig, 'views/root/index.twig', array("message"=>"world")));
 
         return new HtmlResponse($this->template);
+    }
+
+    /**
+     * @URL("/test")
+     */
+    public function testAction()
+    {
+        return new JsonResponse(['status' => 'running']);
+    }
+
+    /**
+     * Fetch shopify products by API key
+     *
+     * @URL("/get-products")
+     * @GET
+     * @return JsonResponse
+     */
+    public function getProductsAction(): JsonResponse
+    {
+        $config = [
+            'ShopUrl' => 'midnightpoint.myshopify.com',
+            'ApiKey' => '224d2671a9b7bb4b7f34f4792ddeeef8',
+            'SharedSecret' => 'd6bd62ea42c4a2cc4aabd9dbbf6a3b07',
+        ];
+        ShopifySDK::config($config);
+        $token = AuthHelper::createAuthRequest('read_products');
+
+        return new JsonResponse(['token' => $token]);
     }
 }
