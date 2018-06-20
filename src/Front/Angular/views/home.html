@@ -4,26 +4,32 @@
             <h2>Please enter shop name</h2>
             <div class="p-v-1">
                 <input type="text"
-                       ng-model="shopName"/>
+                       ng-model="data.storeName"/>
                 <label>.myshopify.com</label>
+            </div>
+            <div class="p-v-2" ng-if="state.verified">
+                <label class="text-success" ng-if="state.authSuccess">* The store had been already authorized. You can go to next step. *</label>
+                <label class="text-danger" ng-if="!state.authSuccess">* You have to authorize the store first to go to next step. *</label>
             </div>
         </div>
         <div class="row pull-right">
             <input type="button" class="btn btn-success"
-                  ng-click="checkStore()"
-                  value="Next"/>
-            <input type="button" class="btn btn-success"
+                  ng-click="verify()"
+                  ng-if="!state.verified"
+                  ng-disabled="!data.storeName"
+                  value="Verify"/>
+            <input type="button" class="btn btn-danger m-r-1 p-h-2"
+                  ng-click="back()"
+                  ng-if="state.verified"
+                  value="Back"/>
+            <input type="button" class="btn btn-success p-h-2"
                   ng-click="next()"
-                  ng-if="state.authorized && state.success"
+                  ng-if="state.verified && state.authSuccess"
                   value="Next"/>
             <input type="button" class="btn btn-success"
                   ng-click="authorize()"
-                  ng-if="state.authorized && state.fail"
+                  ng-if="state.verified && !state.authSuccess"
                   value="Authorize"/>
-            <input type="button" class="btn btn-success"
-                  ng-click="back()"
-                  ng-if="state.authorized"
-                  value="Back"/>
         </div>
     </div>
 </div>

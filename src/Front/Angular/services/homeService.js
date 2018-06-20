@@ -2,11 +2,11 @@ ShopFunnelsApp.service('HomeService', ['$q', '$http',
     function($q, $http) {
         this.rootUrl = rootUrl;
 
-        this.testAction = function (fakeData) {
+        this.verifyStore = function (storeName) {
             var deferred = $q.defer();
 
             $http({
-                url: this.rootUrl + 'api/test',
+                url: this.rootUrl + 'api/verify-store?storeName=' + storeName,
                 method: 'GET'
             }).then(function (response) {
                 deferred.resolve(response.data);

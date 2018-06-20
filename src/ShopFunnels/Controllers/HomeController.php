@@ -13,13 +13,14 @@ use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
+use ShopFunnels\Services\HomeService;
 use PHPShopify\ShopifySDK;
 use PHPShopify\AuthHelper;
 
 /**
- * RootController Class
+ * HomeController Class
  */
-class RootController
+class HomeController
 {
     /**
      * The template used by this controller.
@@ -40,15 +41,23 @@ class RootController
     private $twig;
 
     /**
-     * RootController's constructor.
-     * @param TemplateInterface $template The template used by this controller
-     * @param HtmlBlock $content The main content block of the page
-     * @param Twig_Environment $twig The Twig environment (used to render Twig templates)
+     * @var HomeService
      */
-    public function __construct(TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig) {
+    private $homeService;
+
+    /**
+     * HomeController's constructor.
+     * @param TemplateInterface   $template
+     * @param HtmlBlock           $content
+     * @param Twig_Environment    $twig
+     * @param HomeService         $homeService
+     */
+    public function __construct(TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig, HomeService $homeService)
+    {
         $this->template = $template;
         $this->content = $content;
         $this->twig = $twig;
+        $this->homeService = $homeService;
     }
 
     /**
@@ -67,6 +76,20 @@ class RootController
     public function testAction()
     {
         return new JsonResponse(['status' => 'running']);
+    }
+
+    /**
+     * @URL("/api/verify-store")
+     * @GET
+     *
+     * @param string $storeName
+     * @return JsonResponse
+     */
+    public function verifyStoreAction(string $storeName)
+    {
+        $success = $this->homeService->verifyStore($storeName);
+
+        return new JsonResponse(['success' => $success]);
     }
 
     /**

@@ -1480,6 +1480,7 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     array (
       'setRoleDao' => 'roleDao',
       'setRoleRightDao' => 'roleRightDao',
+      'setStoreDao' => 'storeDao',
       'setUserDao' => 'userDao',
     ),
     'weak' => false,
@@ -1575,6 +1576,69 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     'class' => 'Doctrine\\DBAL\\Tools\\Console\\Command\\RunSqlCommand',
     'external' => false,
     'weak' => false,
+  ),
+  'dbpatch.88fa-20180620020538-patch-create-table-stores' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '88fa-20180620020538-patch-create-table-stores',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180620020538-patch-create-table-stores.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180620020538-patch-create-table-stores.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => '',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'defaultDoctrineCache' => 
   array (
@@ -1898,6 +1962,69 @@ return $driver;
         array (
           'db' => 'dbalConnectionHelper',
         ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'homeController' => 
+  array (
+    'class' => 'ShopFunnels\\Controllers\\HomeController',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'bootstrapTemplate',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'block.content',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'homeService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'homeService' => 
+  array (
+    'class' => 'ShopFunnels\\Services\\HomeService',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'daoFactory',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -2560,6 +2687,7 @@ return $driver;
       'setPatchs' => 
       array (
         0 => 'Mouf\\Security\\Migrations\\CreateUserRoleRightPatch',
+        1 => 'dbpatch.88fa-20180620020538-patch-create-table-stores',
       ),
     ),
   ),
@@ -2663,42 +2791,6 @@ return $driver;
       0 => 
       array (
         'value' => 'tdbmService',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-  ),
-  'rootController' => 
-  array (
-    'class' => 'ShopFunnels\\Controllers\\RootController',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 'bootstrapTemplate',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 'block.content',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      2 => 
-      array (
-        'value' => 'twigEnvironment',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -2875,6 +2967,23 @@ $drivers[] = new Stash\\Driver\\FileSystem([
 $compositeDriver = new Stash\\Driver\\Composite([\'drivers\'=>$drivers]);
 
 return new Stash\\Pool($compositeDriver);',
+  ),
+  'storeDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\StoreDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'swiftMailService' => 
   array (
@@ -3693,6 +3802,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_88fa20180620020538patchcreatetablestores() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.88fa-20180620020538-patch-create-table-stores');
+	 }
+
+	/**
 	 * @return Doctrine\Common\Cache\ArrayCache
 	 */
 	 public static function getDefaultDoctrineCache() {
@@ -3788,6 +3904,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getHelperSet() {
 	 	return MoufManager::getMoufManager()->get('helperSet');
+	 }
+
+	/**
+	 * @return ShopFunnels\Controllers\HomeController
+	 */
+	 public static function getHomeController() {
+	 	return MoufManager::getMoufManager()->get('homeController');
+	 }
+
+	/**
+	 * @return ShopFunnels\Services\HomeService
+	 */
+	 public static function getHomeService() {
+	 	return MoufManager::getMoufManager()->get('homeService');
 	 }
 
 	/**
@@ -3966,13 +4096,6 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
-	 * @return ShopFunnels\Controllers\RootController
-	 */
-	 public static function getRootController() {
-	 	return MoufManager::getMoufManager()->get('rootController');
-	 }
-
-	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\InlineWebLibrary
 	 */
 	 public static function getRootUrlInlineWebLibrary() {
@@ -4019,6 +4142,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getSplashCachePool() {
 	 	return MoufManager::getMoufManager()->get('splashCachePool');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\StoreDao
+	 */
+	 public static function getStoreDao() {
+	 	return MoufManager::getMoufManager()->get('storeDao');
 	 }
 
 	/**
