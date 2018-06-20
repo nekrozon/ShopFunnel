@@ -1287,6 +1287,17 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
       'setTemplateRenderer' => 'bootstrapRenderer',
       'setDefaultRenderer' => 'defaultRenderer',
     ),
+    'setterProperties' => 
+    array (
+      'setTitle' => 
+      array (
+        'value' => 'Shop Funnels',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'cascadingLanguageDetection' => 
   array (
@@ -1469,6 +1480,7 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     array (
       'setRoleDao' => 'roleDao',
       'setRoleRightDao' => 'roleRightDao',
+      'setStoreDao' => 'storeDao',
       'setUserDao' => 'userDao',
     ),
     'weak' => false,
@@ -1565,6 +1577,69 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     'external' => false,
     'weak' => false,
   ),
+  'dbpatch.88fa-20180620020538-patch-create-table-stores' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '88fa-20180620020538-patch-create-table-stores',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180620020538-patch-create-table-stores.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180620020538-patch-create-table-stores.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => '',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'defaultDoctrineCache' => 
   array (
     'weak' => false,
@@ -1638,12 +1713,8 @@ return $driver;
       'setWebLibraries' => 
       array (
         0 => 'rootUrlInlineWebLibrary',
-        1 => 'messageServiceLibrary',
-        2 => 'component.jquery',
-        3 => 'component.bootstrap',
-        4 => 'jQueryLibrary',
-        5 => 'jQueryHistory',
-        6 => 'evolugridLibrary',
+        1 => 'shopFunnelsLibraryManager',
+        2 => 'messageServiceLibrary',
       ),
     ),
     'constructor' => 
@@ -1657,6 +1728,9 @@ return $driver;
         array (
         ),
       ),
+    ),
+    'setterProperties' => 
+    array (
     ),
   ),
   'doctrineDbalConfiguration' => 
@@ -1888,6 +1962,69 @@ return $driver;
         array (
           'db' => 'dbalConnectionHelper',
         ),
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'homeController' => 
+  array (
+    'class' => 'ShopFunnels\\Controllers\\HomeController',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'bootstrapTemplate',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'block.content',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'homeService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'homeService' => 
+  array (
+    'class' => 'ShopFunnels\\Services\\HomeService',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'daoFactory',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -2550,6 +2687,70 @@ return $driver;
       'setPatchs' => 
       array (
         0 => 'Mouf\\Security\\Migrations\\CreateUserRoleRightPatch',
+        1 => 'dbpatch.88fa-20180620020538-patch-create-table-stores',
+      ),
+    ),
+  ),
+  'productController' => 
+  array (
+    'class' => 'ShopFunnels\\Controllers\\ProductController',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'bootstrapTemplate',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'block.content',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'productService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'productService' => 
+  array (
+    'class' => 'ShopFunnels\\Services\\ProductService',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'daoFactory',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
       ),
     ),
   ),
@@ -2661,42 +2862,6 @@ return $driver;
       ),
     ),
   ),
-  'rootController' => 
-  array (
-    'class' => 'ShopFunnels\\Controllers\\RootController',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 'bootstrapTemplate',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 'block.content',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      2 => 
-      array (
-        'value' => 'twigEnvironment',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-  ),
   'rootUrlInlineWebLibrary' => 
   array (
     'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\InlineWebLibrary',
@@ -2737,6 +2902,41 @@ return $driver;
   array (
     'class' => 'Mouf\\Utils\\Session\\SessionManager\\DefaultSessionManager',
     'external' => false,
+  ),
+  'shopFunnelsLibraryManager' => 
+  array (
+    'class' => 'Mouf\\Html\\Utils\\WebLibraryManager\\WebLibrary',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 
+        array (
+          0 => 'src/Public/js/vendor.js',
+          1 => 'src/Public/js/main.js',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 
+        array (
+          0 => 'src/Public/css/vendor.css',
+          1 => 'src/Public/css/main.css',
+        ),
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'simpleLoginController' => 
   array (
@@ -2830,6 +3030,23 @@ $drivers[] = new Stash\\Driver\\FileSystem([
 $compositeDriver = new Stash\\Driver\\Composite([\'drivers\'=>$drivers]);
 
 return new Stash\\Pool($compositeDriver);',
+  ),
+  'storeDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\StoreDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'swiftMailService' => 
   array (
@@ -3648,6 +3865,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_88fa20180620020538patchcreatetablestores() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.88fa-20180620020538-patch-create-table-stores');
+	 }
+
+	/**
 	 * @return Doctrine\Common\Cache\ArrayCache
 	 */
 	 public static function getDefaultDoctrineCache() {
@@ -3743,6 +3967,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getHelperSet() {
 	 	return MoufManager::getMoufManager()->get('helperSet');
+	 }
+
+	/**
+	 * @return ShopFunnels\Controllers\HomeController
+	 */
+	 public static function getHomeController() {
+	 	return MoufManager::getMoufManager()->get('homeController');
+	 }
+
+	/**
+	 * @return ShopFunnels\Services\HomeService
+	 */
+	 public static function getHomeService() {
+	 	return MoufManager::getMoufManager()->get('homeService');
 	 }
 
 	/**
@@ -3872,6 +4110,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return ShopFunnels\Controllers\ProductController
+	 */
+	 public static function getProductController() {
+	 	return MoufManager::getMoufManager()->get('productController');
+	 }
+
+	/**
+	 * @return ShopFunnels\Services\ProductService
+	 */
+	 public static function getProductService() {
+	 	return MoufManager::getMoufManager()->get('productService');
+	 }
+
+	/**
 	 * @return Mouf\Utils\Log\Psr\ErrorLogLogger
 	 */
 	 public static function getPsr_errorLogLogger() {
@@ -3921,13 +4173,6 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
-	 * @return ShopFunnels\Controllers\RootController
-	 */
-	 public static function getRootController() {
-	 	return MoufManager::getMoufManager()->get('rootController');
-	 }
-
-	/**
 	 * @return Mouf\Html\Utils\WebLibraryManager\InlineWebLibrary
 	 */
 	 public static function getRootUrlInlineWebLibrary() {
@@ -3949,6 +4194,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return Mouf\Html\Utils\WebLibraryManager\WebLibrary
+	 */
+	 public static function getShopFunnelsLibraryManager() {
+	 	return MoufManager::getMoufManager()->get('shopFunnelsLibraryManager');
+	 }
+
+	/**
 	 * @return Mouf\Security\Controllers\SimpleLoginController
 	 */
 	 public static function getSimpleLoginController() {
@@ -3967,6 +4219,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getSplashCachePool() {
 	 	return MoufManager::getMoufManager()->get('splashCachePool');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\StoreDao
+	 */
+	 public static function getStoreDao() {
+	 	return MoufManager::getMoufManager()->get('storeDao');
 	 }
 
 	/**

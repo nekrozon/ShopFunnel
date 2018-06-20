@@ -10,6 +10,7 @@ namespace ShopFunnels\Dao\Generated;
 
 use ShopFunnels\Dao\RoleDao;
 use ShopFunnels\Dao\RoleRightDao;
+use ShopFunnels\Dao\StoreDao;
 use ShopFunnels\Dao\UserDao;
 
 /**
@@ -64,6 +65,29 @@ class DaoFactory
     public function setRoleRightDao(RoleRightDao $roleRightDao) : void
     {
         $this->roleRightDao = $roleRightDao;
+    }    /**
+     * @var StoreDao
+     */
+    private $storeDao;
+
+    /**
+     * Returns an instance of the StoreDao class.
+     *
+     * @return StoreDao
+     */
+    public function getStoreDao() : StoreDao
+    {
+        return $this->storeDao;
+    }
+
+    /**
+     * Sets the instance of the StoreDao class that will be returned by the factory getter.
+     *
+     * @param StoreDao $storeDao
+     */
+    public function setStoreDao(StoreDao $storeDao) : void
+    {
+        $this->storeDao = $storeDao;
     }    /**
      * @var UserDao
      */
