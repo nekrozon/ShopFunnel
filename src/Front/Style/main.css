@@ -1107,6 +1107,23 @@ table th[class*="col-"] {
     border-bottom: 0;
   }
 }
+td img {
+  display: block;
+  max-width: 100px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+  margin: auto;
+}
+.ng-table-sort-header th {
+  color: #fff;
+  background-color: #337ab7 !important;
+  border-color: #aaa !important;
+}
+.ng-table-filters th {
+  background-color: #ddd !important;
+  border-color: white !important;
+}
 #loading-bar .bar {
   -webkit-transition: width 350ms;
   -moz-transition: width 350ms;

@@ -76,4 +76,18 @@ class ProductController
 
         return new HtmlResponse($this->template);
     }
+
+    /**
+     * @URL("/api/get-products")
+     * @GET
+     *
+     * @param string $shop
+     * @return JsonResponse
+     */
+    public function getProductsAction(string $shop): JsonResponse
+    {
+        $response = $this->productService->getProducts($shop);
+
+        return new JsonResponse($response);
+    }
 }

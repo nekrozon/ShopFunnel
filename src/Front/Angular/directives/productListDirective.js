@@ -6,20 +6,37 @@ ShopFunnelsApp.directive('productList', function() {
         restrict: 'E',
         replace: 'true',
         templateUrl: rootUrl + 'src/Front/Angular/views/directives/productListTemplate.html',
-        controller: ['$scope', '$controller', 'NgTableParams', function($scope, $controller, NgTableParams) {
+        controller: ['$scope', '$controller', 'NgTableParams', 'ProductService', function($scope, $controller, NgTableParams, ProductService) {
 
             angular.extend(this, $controller('BaseController', {$scope: $scope}));
 
             $scope.state = {
                 loading: false,
+                loadSuccess: false,
                 productSelected: false,
                 step: 1
             };
 
-            $scope.data.products = [];
+            $scope.data = {
+                products: [],
+                selectedProducts: [],
+                errorMsg: '',
+                titleFilter: {
+                    title: {
+                        id: 'text',
+                        placeholder: 'Filter by title...'
+                    }
+                },
+                newTitleFilter: {
+                    newTitle: {
+                        id: 'text',
+                        placeholder: 'Filter by new title...'
+                    }
+                }
+            };
 
             $scope.data.productTable = new NgTableParams({
-                count: 25
+                count: 10
             }, {
                 sorting: {
                    title: 'asc'
@@ -31,25 +48,29 @@ ShopFunnelsApp.directive('productList', function() {
             });
 
             $scope.data.selectedProductTable = new NgTableParams({
-                count: 25
+                count: 10
             }, {
                 sorting: {
                    title: 'asc'
                 },
                 getData: function (params) {
                     var filters = angular.copy(params.filter());
-                    return $scope.filterRows($scope.data.products, filters, params);
+                    return $scope.filterRows($scope.data.selectedProducts, filters, params);
                 }
             });
 
             $scope.loadData = function () {
-                for (var i = 0; i < 50; i++) {
-                    $scope.data.products.push({
-                        title: 'Product 1',
-                        imgUrl: 'https://xxx.yyy.com/images/1.png'
-                    });
-                }
-                $scope.data.productTable.reload();
+                $scope.state.loading = true;
+                ProductService.getProducts($scope.shop).then(function (response) {
+                    $scope.state.loadSuccess = response.success;
+                    if (response.success) {
+                        $scope.data.products = response.data;
+                        $scope.data.productTable.reload();
+                    } else {
+                        $scope.data.errorMsg = response.message;
+                    }
+                    $scope.state.loading = false;
+                });
             };
 
             $scope.selectionChanged = function () {
@@ -63,7 +84,11 @@ ShopFunnelsApp.directive('productList', function() {
             };
 
             $scope.next = function () {
+                $scope.data.selectedProducts = $scope.data.products.filter(function (product) {
+                    return product.selected;
+                });
                 $scope.state.step++;
+                $scope.data.selectedProductTable.reload();
             };
 
             $scope.loadData();
