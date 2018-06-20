@@ -16,12 +16,14 @@ ShopFunnelsApp.controller('HomeController', ['$scope', 'HomeService',
         };
 
         $scope.next = function () {
-
+            window.location.href = rootUrl + 'products?shop=' + $scope.data.storeName + '.myshopify.com';
         };
 
         $scope.authorize = function () {
             HomeService.authorize($scope.data.storeName).then(function (response) {
-                $scope.state.authSuccess = response.success;
+                $scope.state.verified = false;
+                $scope.state.authSuccess = false;
+                window.open(response.authUri, '_blank');
             });
         };
 

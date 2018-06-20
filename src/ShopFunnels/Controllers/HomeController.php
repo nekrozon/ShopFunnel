@@ -13,6 +13,7 @@ use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\Response\RedirectResponse;
 use ShopFunnels\Services\HomeService;
 use ShopFunnels\Classes\Constants;
 use PHPShopify\ShopifySDK;
@@ -63,20 +64,15 @@ class HomeController
 
     /**
      * @URL("/")
+     * @GET
+     *
+     * @return HtmlResponse
      */
-    public function index()
+    public function index(): HtmlResponse
     {
         $this->content->addHtmlElement(new HtmlFromFile('./src/Front/Angular/views/home.html'));
 
         return new HtmlResponse($this->template);
-    }
-
-    /**
-     * @URL("/test")
-     */
-    public function testAction()
-    {
-        return new JsonResponse(['status' => 'running']);
     }
 
     /**
@@ -86,7 +82,7 @@ class HomeController
      * @param string $storeName
      * @return JsonResponse
      */
-    public function verifyStoreAction(string $storeName)
+    public function verifyStoreAction(string $storeName): JsonResponse
     {
         $success = $this->homeService->verifyStore($storeName);
 
@@ -102,14 +98,34 @@ class HomeController
      */
     public function authorizeAction(string $storeName): JsonResponse
     {
+        $authUri = 'https://'.$storeName.'.myshopify.com/admin/oauth/authorize?client_id='.Constants::API_KEY.'&redirect_uri='.Constants::REDIRECT_URI.'&scope=read_products';
+
+        return new JsonResponse(['authUri' => $authUri]);
+    }
+
+    /**
+     * @URL("/authorization-handler")
+     * @GET
+     *
+     * @param string $shop
+     * @return JsonResponse
+     */
+    public function authorizationHandlerAction(string $shop): JsonResponse
+    {
         $config = [
-            'ShopUrl' => $storeName,
+            'ShopUrl' => $shop,
             'ApiKey' => Constants::API_KEY,
             'SharedSecret' => Constants::SECRET_KEY,
         ];
         ShopifySDK::config($config);
-        $token = AuthHelper::createAuthRequest('read_products');
+        $token = AuthHelper::getAccessToken();
 
-        return new JsonResponse(['success' => $token !== null, 'token' => $token]);
+        $this->homeService->saveStore($shop, $token);
+
+        $this->content->addHtmlElement(new TwigTemplate($this->twig, 'views/product/list.twig', [
+            'shop' => $shop,
+        ]));
+
+        return new HtmlResponse($this->template);
     }
 }
