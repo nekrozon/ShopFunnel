@@ -2691,6 +2691,69 @@ return $driver;
       ),
     ),
   ),
+  'productController' => 
+  array (
+    'class' => 'ShopFunnels\\Controllers\\ProductController',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'bootstrapTemplate',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'block.content',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'productService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'productService' => 
+  array (
+    'class' => 'ShopFunnels\\Services\\ProductService',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'daoFactory',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'psr.errorLogLogger' => 
   array (
     'class' => 'Mouf\\Utils\\Log\\Psr\\ErrorLogLogger',
@@ -4044,6 +4107,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getPatchService() {
 	 	return MoufManager::getMoufManager()->get('patchService');
+	 }
+
+	/**
+	 * @return ShopFunnels\Controllers\ProductController
+	 */
+	 public static function getProductController() {
+	 	return MoufManager::getMoufManager()->get('productController');
+	 }
+
+	/**
+	 * @return ShopFunnels\Services\ProductService
+	 */
+	 public static function getProductService() {
+	 	return MoufManager::getMoufManager()->get('productService');
 	 }
 
 	/**

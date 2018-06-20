@@ -13,7 +13,6 @@ use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use Zend\Diactoros\Response\RedirectResponse;
 use ShopFunnels\Services\HomeService;
 use ShopFunnels\Classes\Constants;
 use PHPShopify\ShopifySDK;
@@ -84,7 +83,7 @@ class HomeController
      */
     public function verifyStoreAction(string $storeName): JsonResponse
     {
-        $success = $this->homeService->verifyStore($storeName);
+        $success = $this->homeService->verifyStore($storeName.'.myshopify.com');
 
         return new JsonResponse(['success' => $success]);
     }
@@ -108,9 +107,9 @@ class HomeController
      * @GET
      *
      * @param string $shop
-     * @return JsonResponse
+     * @return HtmlResponse
      */
-    public function authorizationHandlerAction(string $shop): JsonResponse
+    public function authorizationHandlerAction(string $shop): HtmlResponse
     {
         $config = [
             'ShopUrl' => $shop,

@@ -21,9 +21,7 @@ ShopFunnelsApp.controller('HomeController', ['$scope', 'HomeService',
 
         $scope.authorize = function () {
             HomeService.authorize($scope.data.storeName).then(function (response) {
-                $scope.state.verified = false;
-                $scope.state.authSuccess = false;
-                window.open(response.authUri, '_blank');
+                window.location.href = response.authUri;
             });
         };
 
