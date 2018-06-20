@@ -16,5 +16,20 @@ ShopFunnelsApp.service('HomeService', ['$q', '$http',
 
             return deferred.promise;
         };
+
+        this.authorize = function (storeName) {
+            var deferred = $q.defer();
+
+            $http({
+                url: this.rootUrl + 'api/authorize?storeName=' + storeName,
+                method: 'GET'
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (error) {
+                deferred.reject(error.data);
+            });
+
+            return deferred.promise;
+        };
     }
 ]);

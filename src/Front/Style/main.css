@@ -635,7 +635,7 @@ input[type="checkbox"]:disabled:checked:after,
   border-color: transparent;
   background-color: transparent;
 }
-.container-fluid {
+.content {
   padding-top: 80px;
 }
 .m-v-1 {

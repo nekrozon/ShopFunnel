@@ -20,7 +20,9 @@ ShopFunnelsApp.controller('HomeController', ['$scope', 'HomeService',
         };
 
         $scope.authorize = function () {
-
+            HomeService.authorize($scope.data.storeName).then(function (response) {
+                $scope.state.authSuccess = response.success;
+            });
         };
 
         $scope.back = function () {

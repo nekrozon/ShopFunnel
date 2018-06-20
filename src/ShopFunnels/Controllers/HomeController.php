@@ -14,6 +14,7 @@ use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
 use ShopFunnels\Services\HomeService;
+use ShopFunnels\Classes\Constants;
 use PHPShopify\ShopifySDK;
 use PHPShopify\AuthHelper;
 
@@ -93,22 +94,22 @@ class HomeController
     }
 
     /**
-     * Fetch shopify products by API key
-     *
-     * @URL("/get-products")
+     * @URL("/api/authorize")
      * @GET
+     *
+     * @param string $storeName
      * @return JsonResponse
      */
-    public function getProductsAction(): JsonResponse
+    public function authorizeAction(string $storeName): JsonResponse
     {
         $config = [
-            'ShopUrl' => 'midnightpoint.myshopify.com',
-            'ApiKey' => '63ad8bb37986eddbc73da803fa591e7c',
-            'SharedSecret' => '9e7c060a1849ad2dbadf2fb71dae7b9e',
+            'ShopUrl' => $storeName,
+            'ApiKey' => Constants::API_KEY,
+            'SharedSecret' => Constants::SECRET_KEY,
         ];
         ShopifySDK::config($config);
         $token = AuthHelper::createAuthRequest('read_products');
 
-        return new JsonResponse(['token' => $token]);
+        return new JsonResponse(['success' => $token !== null, 'token' => $token]);
     }
 }

@@ -13,7 +13,11 @@
     <div id="wrapper" data-ng-app="ShopFunnelsApp">
         <div id="page-content">
             <div class="container-fluid shadow fadeInUp one animate">
-                {{ toHtml(this.content) }}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 content p-h-4">
+                        {{ toHtml(this.content) }}
+                    </div>
+                </div>
             </div>
        </div>
     </div>
