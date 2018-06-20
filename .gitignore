@@ -7,3 +7,6 @@
 /.idea
 /config.php
 .DS_Store
+/src/Public/css/*
+/src/Public/js/*
+/src/Public/fonts/*
