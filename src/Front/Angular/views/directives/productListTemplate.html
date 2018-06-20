@@ -1,3 +1,52 @@
 <div>
-    <h2>{{shop}}</h2>
+    <h2>Products of {{shop}}</h2>
+    <div ng-if="state.loading">
+        <loader data-loader-style="loader-default" data-loader-text="Loading..."></loader>
+    </div>
+    <div ng-if="!state.loading">
+        <div class="row pull-right m-t-1">
+            <div class="col-md-12">
+                <button type="button"
+                        class="btn btn-danger p-h-2 m-r-1"
+                        ng-if="state.step > 1"
+                        ng-click="back()">Back</button>
+                <button type="button"
+                        class="btn btn-success p-h-2"
+                        ng-if="state.step < 5"
+                        ng-disabled="state.step == 1 && !state.productSelected"
+                        ng-click="next()">Next</button>
+            </div>
+        </div>
+        <div class="row p-t-4">
+            <div class="com-md-12">
+                <div ng-if="state.step == 1">
+                    <table ng-table="data.productTable" class="table table-bordered table-striped table-hover">
+                        <tr ng-repeat="product in $data">
+                            <td class="text-center">
+                                <input type="checkbox" ng-model="product.selected" ng-change="selectionChanged()"/>
+                            </td>
+                            <td data-title="'Thumbnail'">
+                                {{ product.imgUrl }}
+                            </td>
+                            <td data-title="'Title'" sortable="'title'" filter="{title: 'text'}">
+                                {{ product.title }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div ng-if="state.step == 2">
+                    <table ng-table="data.selectedProductTable" class="table table-bordered table-striped table-hover">
+                        <tr ng-repeat="product in $data">
+                            <td data-title="'Thumbnail'">
+                                {{ product.imgUrl }}
+                            </td>
+                            <td data-title="'Title'" sortable="'title'" filter="{title: 'text'}">
+                                {{ product.title }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
