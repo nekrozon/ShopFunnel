@@ -84,11 +84,17 @@ ShopFunnelsApp.directive('productList', function() {
             };
 
             $scope.next = function () {
-                $scope.data.selectedProducts = $scope.data.products.filter(function (product) {
-                    return product.selected;
-                });
-                $scope.state.step++;
-                $scope.data.selectedProductTable.reload();
+                if ($scope.state.step == 1) {
+                    $scope.data.selectedProducts = $scope.data.products.filter(function (product) {
+                        return product.selected;
+                    }).map(function (product) {
+                        product.newTitle = '';
+                        return product;
+                    });
+                    $scope.state.step++;
+                    $scope.data.selectedProductTable.filter({});
+                    $scope.data.selectedProductTable.reload();
+                }
             };
 
             $scope.loadData();
