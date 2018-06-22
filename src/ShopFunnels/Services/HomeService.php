@@ -3,6 +3,7 @@
 namespace ShopFunnels\Services;
 
 use ShopFunnels\Dao\Generated\DaoFactory;
+use Mouf\Security\UserService\UserService;
 use TheCodingMachine\TDBM\TDBMException;
 use ShopFunnels\Model\Store;
 
@@ -17,12 +18,19 @@ class HomeService
     private $daoFactory;
 
     /**
+     * @var UserService
+     */
+    private $userService;
+
+    /**
      * HomeController's constructor.
      * @param DaoFactory $daoFactory
+     * @param UserService $userService
      */
-    public function __construct(DaoFactory $daoFactory)
+    public function __construct(DaoFactory $daoFactory, UserService $userService)
     {
         $this->daoFactory = $daoFactory;
+        $this->userService = $userService;
     }
 
     /**
@@ -34,8 +42,12 @@ class HomeService
     public function verifyStore(string $storeName): bool
     {
         $count = $this->daoFactory->getStoreDao()->getValidStoresByName($storeName)->count();
+        $success = $count > 0;
+        if ($success) {
+            $this->saveWorkingStore($storeName);
+        }
 
-        return $count > 0;
+        return $success;
     }
 
     /**
@@ -49,5 +61,21 @@ class HomeService
     {
         $store = new Store($storeName, $accessToken);
         $this->daoFactory->getStoreDao()->save($store);
+        $this->saveWorkingStore($storeName);
+    }
+
+    /**
+     * Set working store of current logged user.
+     *
+     * @param string $storeName
+     * @return void
+     */
+    public function saveWorkingStore(string $storeName): void
+    {
+        $stores = $this->daoFactory->getStoreDao()->getValidStoresByName($storeName)->toArray();
+        $currentStore = $stores[0];
+        $currentUser = $this->userService->getLoggedUser();
+        $currentUser->setWorkingStore($currentStore);
+        $this->daoFactory->getUserDao()->save($currentUser);
     }
 }

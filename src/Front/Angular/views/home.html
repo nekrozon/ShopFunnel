@@ -1,33 +1,72 @@
 <div ng-cloak ng-controller="HomeController">
-    <div class="row">
-        <h2>Please enter shop name</h2>
-        <div class="p-v-1">
-            <input type="text"
-                   ng-model="data.storeName"/>
-            <label>.myshopify.com</label>
+    <form ng-submit="submit()">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="logo-text m-t-0">Shopfunnel Logo</h2>
+            </div>
+            <div class="col-md-6">
+                <a class="button button-red pull-right home-signout" href="/login/logout">Sign out</a>
+            </div>
         </div>
-        <div class="p-v-2" ng-if="state.verified">
-            <label class="text-success" ng-if="state.authSuccess">* The store had been already authorized. You can go to next step. *</label>
-            <label class="text-danger" ng-if="!state.authSuccess">* You have to authorize the store to go to next step. *</label>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="app-info">
+                    <p class="p-b-1">Welcome to the ShopFunnel App! To get started, follow the steps below :</p>
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label>Step 1.</label>
+                        </div>
+                        <div class="col-md-10">
+                            <p>Enter your Shopify Shop Name.</p>
+                            <p>For example, If your shop name was cloudstore.myshopify.com, you would enter cloudstore in the shopname field.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label>Step 2.</label>
+                        </div>
+                        <div class="col-md-10">
+                            <p>Click the Open ShopFunnel App button.</p>
+                            <p>If you have already authorized the Shopify store, you will go to the ShopFunnel App dashboard immediately.</p>
+                            <p>Otherwise you will be prompted to login the Shopify store.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 text-right">
+                            <label>Step 3.</label>
+                        </div>
+                        <div class="col-md-10">
+                            <p>If you succeed to authorize the Shopify store, you will be redirected to the ShopFunnel App dashboard (one-time approval for permanent access until you uninstall the app).
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row pull-right">
-        <input type="button" class="btn btn-success p-h-1"
-              ng-click="verify()"
-              ng-if="!state.verified"
-              ng-disabled="!data.storeName"
-              value="Verify"/>
-        <input type="button" class="btn btn-danger m-r-1 p-h-2"
-              ng-click="back()"
-              ng-if="state.verified"
-              value="Back"/>
-        <input type="button" class="btn btn-success p-h-2"
-              ng-click="next()"
-              ng-if="state.verified && state.authSuccess"
-              value="Next"/>
-        <input type="button" class="btn btn-success"
-              ng-click="authorize()"
-              ng-if="state.verified && !state.authSuccess"
-              value="Authorize"/>
-    </div>
+        <div class="row" ng-if="state.verified">
+            <div class="col-md-12">
+                <div class="auth-info">
+                    {{ data.authInfo }}
+                </div>
+            </div>
+        </div>
+        <div class="row p-v-1">
+            <div class="col-md-12">
+                <label>Shop Name :</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" ng-model="data.shopname"/>
+            </div>
+            <div class="col-md-8 p-l-0">
+                <h3 style="margin-top:3px;letter-spacing:2px;">.myshopify.com</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="button" class="button button-blue"
+                       ng-click="submit()"
+                       ng-disabled="!data.shopname"
+                       value="Open ShopFunnel App"/>
+            </div>
+        </div>
+    </form>
 </div>

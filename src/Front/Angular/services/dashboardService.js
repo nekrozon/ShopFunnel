@@ -1,4 +1,4 @@
-ShopFunnelsApp.service('HomeService', ['$q', '$http',
+ShopFunnelsApp.service('DashboardService', ['$q', '$http',
     function($q, $http) {
         this.rootUrl = rootUrl;
 

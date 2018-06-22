@@ -6,6 +6,7 @@ use Mouf\Mvc\Splash\Annotations\Post;
 use Mouf\Mvc\Splash\Annotations\Put;
 use Mouf\Mvc\Splash\Annotations\Delete;
 use Mouf\Mvc\Splash\Annotations\URL;
+use Mouf\Security\Logged;
 use Mouf\Html\Template\TemplateInterface;
 use Mouf\Html\HtmlElement\HtmlBlock;
 use Mouf\Html\HtmlElement\HtmlFromFile;
@@ -13,15 +14,14 @@ use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use ShopFunnels\Services\ProductService;
 use ShopFunnels\Classes\Constants;
 use PHPShopify\ShopifySDK;
 use PHPShopify\AuthHelper;
 
 /**
- * ProductController Class
+ * DashboardController Class
  */
-class ProductController
+class DashboardController
 {
     /**
      * The template used by this controller.
@@ -42,52 +42,29 @@ class ProductController
     private $twig;
 
     /**
-     * @var ProductService
-     */
-    private $productService;
-
-    /**
-     * ProductController's constructor.
+     * DashboardController's constructor.
      * @param TemplateInterface   $template
      * @param HtmlBlock           $content
      * @param Twig_Environment    $twig
-     * @param HomeService         $homeService
      */
-    public function __construct(TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig, ProductService $productService)
+    public function __construct(TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig)
     {
         $this->template = $template;
         $this->content = $content;
         $this->twig = $twig;
-        $this->productService = $productService;
     }
 
     /**
-     * @URL("/products")
+     * @URL("/dashboard")
+     * @Logged
      * @GET
      *
-     * @param string $shop
      * @return HtmlResponse
      */
-    public function index(string $shop): HtmlResponse
+    public function index(): HtmlResponse
     {
-        $this->content->addHtmlElement(new TwigTemplate($this->twig, 'views/product/list.twig', [
-            'shop' => $shop,
-        ]));
+        $this->content->addHtmlElement(new HtmlFromFile('./src/Front/Angular/views/dashboard.html'));
 
         return new HtmlResponse($this->template);
-    }
-
-    /**
-     * @URL("/api/get-products")
-     * @GET
-     *
-     * @param string $shop
-     * @return JsonResponse
-     */
-    public function getProductsAction(string $shop): JsonResponse
-    {
-        $response = $this->productService->getProducts($shop);
-
-        return new JsonResponse($response);
     }
 }

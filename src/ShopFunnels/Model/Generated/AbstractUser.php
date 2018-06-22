@@ -6,6 +6,7 @@ namespace ShopFunnels\Model\Generated;
 use TheCodingMachine\TDBM\ResultIterator;
 use TheCodingMachine\TDBM\AlterableResultIterator;
 use Ramsey\Uuid\Uuid;
+use ShopFunnels\Model\Store;
 use ShopFunnels\Model\Role;
 use TheCodingMachine\TDBM\AbstractTDBMObject;
 
@@ -54,6 +55,26 @@ abstract class AbstractUser extends AbstractTDBMObject implements \JsonSerializa
     public function setId(string $id) : void
     {
         $this->set('id', $id, 'users');
+    }
+
+    /**
+     * Returns the Store object bound to this object via the working_store_id column.
+     *
+     * @return Store|null
+     */
+    public function getWorkingStore(): ?Store
+    {
+        return $this->getRef('fk_users_working_store', 'users');
+    }
+
+    /**
+     * The setter for the Store object bound to this object via the working_store_id column.
+     *
+     * @param Store|null $object
+     */
+    public function setWorkingStore(?Store $object) : void
+    {
+        $this->setRef('fk_users_working_store', $object, 'users');
     }
 
     /**
@@ -234,6 +255,10 @@ abstract class AbstractUser extends AbstractTDBMObject implements \JsonSerializa
     {
         $array = [];
         $array['id'] = $this->getId();
+        if (!$stopRecursion) {
+            $object = $this->getWorkingStore();
+            $array['workingStore'] = $object ? $object->jsonSerialize(true) : null;
+        }
         $array['login'] = $this->getLogin();
         $array['password'] = $this->getPassword();
         $array['email'] = $this->getEmail();
@@ -258,6 +283,16 @@ abstract class AbstractUser extends AbstractTDBMObject implements \JsonSerializa
     protected function getUsedTables() : array
     {
         return [ 'users' ];
+    }
+
+    /**
+     * Method called when the bean is removed from database.
+     *
+     */
+    protected function onDelete() : void
+    {
+        parent::onDelete();
+        $this->setRef('fk_users_working_store', null, 'users');
     }
 
     public function __clone()

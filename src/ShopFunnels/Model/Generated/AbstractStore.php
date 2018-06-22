@@ -6,6 +6,7 @@ namespace ShopFunnels\Model\Generated;
 use TheCodingMachine\TDBM\ResultIterator;
 use TheCodingMachine\TDBM\AlterableResultIterator;
 use Ramsey\Uuid\Uuid;
+use ShopFunnels\Model\User;
 use TheCodingMachine\TDBM\AbstractTDBMObject;
 
 /*
@@ -152,6 +153,16 @@ abstract class AbstractStore extends AbstractTDBMObject implements \JsonSerializ
     public function setInvalidatedDate(?\DateTimeImmutable $invalidated_date) : void
     {
         $this->set('invalidated_date', $invalidated_date, 'stores');
+    }
+
+    /**
+     * Returns the list of User pointing to this bean via the working_store_id column.
+     *
+     * @return User[]|AlterableResultIterator
+     */
+    public function getUsers() : AlterableResultIterator
+    {
+        return $this->retrieveManyToOneRelationshipsStorage('users', 'fk_users_working_store', 'users', ['users.working_store_id' => $this->get('id', 'stores')]);
     }
 
 

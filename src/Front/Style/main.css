@@ -638,6 +638,52 @@ input[type="checkbox"]:disabled:checked:after,
 .content {
   padding-top: 80px;
 }
+.m-v-0 {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+.m-h-0 {
+  margin-left: 0em;
+  margin-right: 0em;
+}
+.m-l-0 {
+  margin-left: 0em !important;
+}
+.m-r-0 {
+  margin-right: 0em !important;
+}
+.m-t-0 {
+  margin-top: 0em !important;
+}
+.m-b-0 {
+  margin-bottom: 0em !important;
+}
+.m-0 {
+  margin: 0em;
+}
+.p-v-0 {
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+.p-h-0 {
+  padding-left: 0em;
+  padding-right: 0em;
+}
+.p-l-0 {
+  padding-left: 0em !important;
+}
+.p-r-0 {
+  padding-right: 0em !important;
+}
+.p-t-0 {
+  padding-top: 0em !important;
+}
+.p-b-0 {
+  padding-bottom: 0em !important;
+}
+.p-0 {
+  padding: 0em;
+}
 .m-v-1 {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -1123,6 +1169,70 @@ td img {
 .ng-table-filters th {
   background-color: #ddd !important;
   border-color: white !important;
+}
+.logo-text {
+  width: fit-content;
+  background: #99de7a;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  text-transform: uppercase;
+}
+.app-info {
+  padding: 30px 15px;
+  background: #dff2fe;
+  border: solid 2px #999;
+  border-radius: 10px;
+}
+.auth-info {
+  margin-top: 10px;
+  text-align: center;
+  background: #d0ffdc;
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 18px;
+  font-style: italic;
+  border-radius: 5px;
+  border: solid 2px #b9eed0;
+  color: #7f8581;
+}
+.button {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 5px;
+}
+.button:disabled {
+  cursor: not-allowed;
+}
+.button-blue {
+  background: #2584d0;
+}
+.button-green {
+  background: green;
+}
+.button-red {
+  background: red;
+}
+.button-grey {
+  background: #767676;
+}
+.button-lignt-grey {
+  background: #2584d0;
+  color: #5a5a5a;
+}
+.button-purple {
+  background: #6334ca;
+}
+.button-black {
+  background: black;
+}
+.home-signout {
+  margin-top: 8px;
+}
+.home-signout:hover {
+  text-decoration: none;
+  color: yellow;
 }
 #loading-bar .bar {
   -webkit-transition: width 350ms;

@@ -78,34 +78,26 @@ class HomeController
 
     /**
      * @URL("/api/verify-store")
+     * @Logged
      * @GET
      *
-     * @param string $storeName
+     * @param string $shopname
      * @return JsonResponse
      */
-    public function verifyStoreAction(string $storeName): JsonResponse
+    public function verifyStoreAction(string $shopname): JsonResponse
     {
-        $success = $this->homeService->verifyStore($storeName.'.myshopify.com');
+        $success = $this->homeService->verifyStore($shopname.'.myshopify.com');
+        $authUri = null;
+        if (!$success) {
+            $authUri = 'https://'.$shopname.'.myshopify.com/admin/oauth/authorize?client_id='.Constants::API_KEY.'&redirect_uri='.Constants::REDIRECT_URI.'&scope=read_products';
+        }
 
-        return new JsonResponse(['success' => $success]);
-    }
-
-    /**
-     * @URL("/api/authorize")
-     * @GET
-     *
-     * @param string $storeName
-     * @return JsonResponse
-     */
-    public function authorizeAction(string $storeName): JsonResponse
-    {
-        $authUri = 'https://'.$storeName.'.myshopify.com/admin/oauth/authorize?client_id='.Constants::API_KEY.'&redirect_uri='.Constants::REDIRECT_URI.'&scope=read_products';
-
-        return new JsonResponse(['authUri' => $authUri]);
+        return new JsonResponse(['authorized' => $success, 'authUri' => $authUri]);
     }
 
     /**
      * @URL("/authorization-handler")
+     * @Logged
      * @GET
      *
      * @param string $shop
@@ -123,9 +115,7 @@ class HomeController
 
         $this->homeService->saveStore($shop, $token);
 
-        $this->content->addHtmlElement(new TwigTemplate($this->twig, 'views/product/list.twig', [
-            'shop' => $shop,
-        ]));
+        $this->content->addHtmlElement(new HtmlFromFile('./src/Front/Angular/views/dashboard.html'));
 
         return new HtmlResponse($this->template);
     }

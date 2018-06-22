@@ -1486,6 +1486,42 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     'weak' => false,
     'comment' => '',
   ),
+  'dashboardController' => 
+  array (
+    'class' => 'ShopFunnels\\Controllers\\DashboardController',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'bootstrapTemplate',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'block.content',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'twigEnvironment',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'dbalConnection' => 
   array (
     'class' => 'Doctrine\\DBAL\\Connection',
@@ -1576,6 +1612,69 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     'class' => 'Doctrine\\DBAL\\Tools\\Console\\Command\\RunSqlCommand',
     'external' => false,
     'weak' => false,
+  ),
+  'dbpatch.0c9c-20180622223923-patch-alter-table-users' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180622223923-patch-alter-table-users',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180622223923-patch-alter-table-users.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180622223923-patch-alter-table-users.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'Add working_store_id field',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'dbpatch.88fa-20180620020538-patch-create-table-stores' => 
   array (
@@ -2025,6 +2124,15 @@ return $driver;
       0 => 
       array (
         'value' => 'daoFactory',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'userService',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -2688,51 +2796,7 @@ return $driver;
       array (
         0 => 'Mouf\\Security\\Migrations\\CreateUserRoleRightPatch',
         1 => 'dbpatch.88fa-20180620020538-patch-create-table-stores',
-      ),
-    ),
-  ),
-  'productController' => 
-  array (
-    'class' => 'ShopFunnels\\Controllers\\ProductController',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 'bootstrapTemplate',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      1 => 
-      array (
-        'value' => 'block.content',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      2 => 
-      array (
-        'value' => 'twigEnvironment',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-      3 => 
-      array (
-        'value' => 'productService',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
+        2 => 'dbpatch.0c9c-20180622223923-patch-alter-table-users',
       ),
     ),
   ),
@@ -3865,6 +3929,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return ShopFunnels\Controllers\DashboardController
+	 */
+	 public static function getDashboardController() {
+	 	return MoufManager::getMoufManager()->get('dashboardController');
+	 }
+
+	/**
 	 * @return Doctrine\DBAL\Connection
 	 */
 	 public static function getDbalConnection() {
@@ -3897,6 +3968,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getDbalRunSqlCommand() {
 	 	return MoufManager::getMoufManager()->get('dbalRunSqlCommand');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180622223923patchaltertableusers() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180622223923-patch-alter-table-users');
 	 }
 
 	/**
@@ -4142,13 +4220,6 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getPatchService() {
 	 	return MoufManager::getMoufManager()->get('patchService');
-	 }
-
-	/**
-	 * @return ShopFunnels\Controllers\ProductController
-	 */
-	 public static function getProductController() {
-	 	return MoufManager::getMoufManager()->get('productController');
 	 }
 
 	/**
