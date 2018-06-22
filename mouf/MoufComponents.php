@@ -3006,6 +3006,41 @@ return $driver;
     'class' => 'Mouf\\Security\\Views\\SimpleLoginView',
     'external' => false,
     'weak' => false,
+    'setterProperties' => 
+    array (
+      'setLoginLabel' => 
+      array (
+        'value' => 'Username',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'setPasswordLabel' => 
+      array (
+        'value' => 'Password',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'setLoginSubmitLabel' => 
+      array (
+        'value' => 'Login',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      'setBadCredentialsMessage' => 
+      array (
+        'value' => 'Username or password is incorrect.',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
   ),
   'splashCachePool' => 
   array (

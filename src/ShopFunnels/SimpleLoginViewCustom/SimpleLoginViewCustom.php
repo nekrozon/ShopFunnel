@@ -102,13 +102,13 @@ class SimpleLoginViewCustom extends SimpleLoginView
      */
     public function __construct()
     {
-        $this->titleLabel = iMsg('generic.label.pleaseSignIn');
-        $this->loginLabel = iMsg('generic.label.login');
-        $this->passwordLabel = iMsg('generic.label.password');
-        $this->loginSubmitLabel = iMsg('generic.button.login');
-        $this->rememberMeLabel = iMsg('generic.label.rememberMe');
-        $this->badCredentialsMessage = iMsg('generic.label.badCredentials');
-        $this->forgotYourPasswordLabel = iMsg('generic.label.forgotYourPassword');
+        $this->titleLabel = 'Please sign in';
+        $this->loginLabel = 'Username';
+        $this->passwordLabel = 'Password';
+        $this->loginSubmitLabel = 'Login';
+        $this->rememberMeLabel = 'Remember me';
+        $this->badCredentialsMessage = 'Username or password is incorrect.';
+        $this->forgotYourPasswordLabel = 'Forgot password?';
     }
 
     /**

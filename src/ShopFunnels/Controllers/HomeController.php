@@ -6,6 +6,7 @@ use Mouf\Mvc\Splash\Annotations\Post;
 use Mouf\Mvc\Splash\Annotations\Put;
 use Mouf\Mvc\Splash\Annotations\Delete;
 use Mouf\Mvc\Splash\Annotations\URL;
+use Mouf\Security\Logged;
 use Mouf\Html\Template\TemplateInterface;
 use Mouf\Html\HtmlElement\HtmlBlock;
 use Mouf\Html\HtmlElement\HtmlFromFile;
@@ -63,6 +64,7 @@ class HomeController
 
     /**
      * @URL("/")
+     * @Logged
      * @GET
      *
      * @return HtmlResponse

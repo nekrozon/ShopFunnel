@@ -31,7 +31,7 @@
 </style>
 
 {# Note: the {{ this.loginActionUrl ? this.loginActionUrl : "login" }} part is to allow working with old and new versions of the SimpleLoginView #}
-<form class="form-signin" action='{{ this.loginActionUrl ? this.loginActionUrl : "login" }}'  method='post' ng-controller="LoginController">
+<form class="form-signin" action='{{ this.loginActionUrl ? this.loginActionUrl : "login" }}'  method='post'>
     <input type='hidden' name='redirect' value='{{ this.redirecturl }}' />
     <h2 class="form-signin-heading">{{ this.titleLabel }}</h2>
 
@@ -45,6 +45,4 @@
     <div>
         <button class="btn btn-large btn-primary btn-block" type="submit">{{ this.loginSubmitLabel }}</button>
     </div>
-    <br/>
-    <a href="#" ng-click="openPasswordResetModal()">{{ this.forgotYourPasswordLabel }}</a>
 </form>
