@@ -1520,6 +1520,42 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
         array (
         ),
       ),
+      3 => 
+      array (
+        'value' => 'dashboardService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dashboardService' => 
+  array (
+    'class' => 'ShopFunnels\\Services\\DashboardService',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'daoFactory',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => 'userService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
     ),
   ),
   'dbalConnection' => 
@@ -2800,24 +2836,6 @@ return $driver;
       ),
     ),
   ),
-  'productService' => 
-  array (
-    'class' => 'ShopFunnels\\Services\\ProductService',
-    'external' => false,
-    'weak' => false,
-    'constructor' => 
-    array (
-      0 => 
-      array (
-        'value' => 'daoFactory',
-        'parametertype' => 'object',
-        'type' => 'string',
-        'metadata' => 
-        array (
-        ),
-      ),
-    ),
-  ),
   'psr.errorLogLogger' => 
   array (
     'class' => 'Mouf\\Utils\\Log\\Psr\\ErrorLogLogger',
@@ -3936,6 +3954,13 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 }
 
 	/**
+	 * @return ShopFunnels\Services\DashboardService
+	 */
+	 public static function getDashboardService() {
+	 	return MoufManager::getMoufManager()->get('dashboardService');
+	 }
+
+	/**
 	 * @return Doctrine\DBAL\Connection
 	 */
 	 public static function getDbalConnection() {
@@ -4220,13 +4245,6 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getPatchService() {
 	 	return MoufManager::getMoufManager()->get('patchService');
-	 }
-
-	/**
-	 * @return ShopFunnels\Services\ProductService
-	 */
-	 public static function getProductService() {
-	 	return MoufManager::getMoufManager()->get('productService');
 	 }
 
 	/**

@@ -14,9 +14,7 @@ use \Twig_Environment;
 use Mouf\Html\Renderer\Twig\TwigTemplate;
 use Mouf\Mvc\Splash\HtmlResponse;
 use Zend\Diactoros\Response\JsonResponse;
-use ShopFunnels\Classes\Constants;
-use PHPShopify\ShopifySDK;
-use PHPShopify\AuthHelper;
+use ShopFunnels\Services\DashboardService;
 
 /**
  * DashboardController Class
@@ -42,16 +40,23 @@ class DashboardController
     private $twig;
 
     /**
+     * @var DashboardService
+     */
+    private $dashboardService;
+
+    /**
      * DashboardController's constructor.
      * @param TemplateInterface   $template
      * @param HtmlBlock           $content
      * @param Twig_Environment    $twig
+     * @param DashboardService    $dashboardService
      */
-    public function __construct(TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig)
+    public function __construct(TemplateInterface $template, HtmlBlock $content, Twig_Environment $twig, DashboardService $dashboardService)
     {
         $this->template = $template;
         $this->content = $content;
         $this->twig = $twig;
+        $this->dashboardService = $dashboardService;
     }
 
     /**
@@ -66,5 +71,33 @@ class DashboardController
         $this->content->addHtmlElement(new HtmlFromFile('./src/Front/Angular/views/dashboard.html'));
 
         return new HtmlResponse($this->template);
+    }
+
+    /**
+     * @URL("/api/get-dashboard-data")
+     * @Logged
+     * @GET
+     *
+     * @return JsonResponse
+     */
+    public function getInitDataAction(): JsonResponse
+    {
+        $result = $this->dashboardService->getInitData();
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/get-products")
+     * @Logged
+     * @GET
+     *
+     * @return JsonResponse
+     */
+    public function getProductsAction(): JsonResponse
+    {
+        $result = $this->dashboardService->getProducts();
+
+        return new JsonResponse($result);
     }
 }

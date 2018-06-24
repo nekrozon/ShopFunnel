@@ -36,7 +36,12 @@ lessFiles = [
         './node_modules/checklist-model/checklist-model.js',
         './node_modules/angular-loading-bar/build/loading-bar.js',
         './node_modules/jquery-validation/dist/jquery.validate.min.js',
-        './node_modules/ng-table-excel-export/ng-table-excel-export.js'
+        './node_modules/ng-table-excel-export/ng-table-excel-export.js',
+        './node_modules/angular-aria/angular-aria.min.js',
+        './node_modules/angular-messages/angular-messages.min.js',
+        './node_modules/angular-material/angular-material.min.js',
+        './node_modules/clipboard/dist/clipboard.min.js',
+        './node_modules/ngclipboard/dist/ngclipboard.min.js'
     ],
     npmCssPaths = [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -45,7 +50,8 @@ lessFiles = [
         './node_modules/ng-table/bundles/ng-table.css',
         './node_modules/toastr/build/toastr.css',
         './node_modules/angular-loading-bar/build/loading-bar.css',
-        './node_modules/material-design-icons/iconfont/material-icons.css'
+        './node_modules/material-design-icons/iconfont/material-icons.css',
+        './node_modules/angular-material/angular-material.min.css'
     ],
     npmFontsPaths = [
         './node_modules/font-awesome/fonts/**',

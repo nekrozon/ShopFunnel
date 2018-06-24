@@ -916,10 +916,12 @@ input[type="checkbox"]:disabled:checked:after,
 }
 .table {
   border-collapse: collapse !important;
+  border: solid 2px #ecf0f1;
 }
 .table td,
 .table th {
   background-color: #fff !important;
+  vertical-align: middle !important;
 }
 .table-bordered th,
 .table-bordered td {
@@ -1161,14 +1163,8 @@ td img {
   height: auto;
   margin: auto;
 }
-.ng-table-sort-header th {
-  color: #fff;
-  background-color: #337ab7 !important;
-  border-color: #aaa !important;
-}
-.ng-table-filters th {
-  background-color: #ddd !important;
-  border-color: white !important;
+.img-bordered {
+  border: solid 1px #ddd;
 }
 .logo-text {
   width: fit-content;
@@ -1197,42 +1193,97 @@ td img {
   color: #7f8581;
 }
 .button {
-  padding: 10px 20px;
+  padding: 10px 15px;
   text-transform: uppercase;
+  text-decoration: none !important;
   color: white;
   border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap;
 }
 .button:disabled {
   cursor: not-allowed;
 }
-.button-blue {
+.button:hover {
+  text-decoration: none;
+}
+.color-blue {
   background: #2584d0;
 }
-.button-green {
+.color-green {
   background: green;
 }
-.button-red {
+.color-red {
   background: red;
 }
-.button-grey {
+.color-grey {
   background: #767676;
 }
-.button-lignt-grey {
-  background: #2584d0;
-  color: #5a5a5a;
+.color-light-grey {
+  background: #e0e1e2;
+  color: #5a5a5a !important;
 }
-.button-purple {
+.color-purple {
   background: #6334ca;
 }
-.button-black {
+.color-black {
   background: black;
 }
-.home-signout {
-  margin-top: 8px;
+.color-label {
+  padding: 8px 15px;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 5px;
+  white-space: nowrap;
+  line-height: 1 !important;
 }
-.home-signout:hover {
-  text-decoration: none;
-  color: yellow;
+.clear-both {
+  clear: both;
+}
+.webhook-mark {
+  font-size: 20px;
+  margin-right: 10px;
+  float: right;
+  cursor: help;
+}
+.md-tooltip {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin-top: 5px !important;
+  height: 32px;
+}
+a i {
+  font-size: 18px !important;
+}
+.uib-tab .nav-link {
+  font-weight: bold;
+}
+.tab-content {
+  padding: 10px 10px 50px 10px;
+  border: solid 1px #ddd;
+  border-top-style: none;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.webhook-input {
+  width: calc(100% - 34px);
+  display: inline-block;
+}
+.clipboard-button {
+  width: 34px;
+  height: 34px;
+  margin-left: -5px;
+  vertical-align: top;
+  border-radius: 4px;
+}
+._md-nav-button {
+  margin-top: -3px !important;
+  text-transform: none;
+}
+._md-nav-button.md-active {
+  border-bottom: solid;
 }
 #loading-bar .bar {
   -webkit-transition: width 350ms;

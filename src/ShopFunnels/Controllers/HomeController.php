@@ -77,6 +77,20 @@ class HomeController
     }
 
     /**
+     * @URL("/api/get-user")
+     * @Logged
+     * @GET
+     *
+     * @return JsonResponse
+     */
+    public function getUserAction(): JsonResponse
+    {
+        $result = $this->homeService->getLoggedUser();
+
+        return new JsonResponse($result);
+    }
+
+    /**
      * @URL("/api/verify-store")
      * @Logged
      * @GET

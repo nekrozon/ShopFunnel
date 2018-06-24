@@ -5,7 +5,14 @@
                 <h2 class="logo-text m-t-0">Shopfunnel Logo</h2>
             </div>
             <div class="col-md-6">
-                <a class="button button-red pull-right home-signout" href="/login/logout">Sign out</a>
+                <md-menu md-offset="4 36" class="pull-right m-t-1">
+                    <a class="button color-grey" ng-click="openMenu($mdMenu, $event)"><i class="fa fa-user-circle m-r-1"></i>{{ data.username }}</a>
+                    <md-menu-content width="2" class="p-v-0">
+                        <md-menu-item>
+                            <md-button ng-click="logout()">Sign out</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </div>
         </div>
         <div class="row">
@@ -62,7 +69,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input type="button" class="button button-blue"
+                <input type="button" class="button color-blue"
                        ng-click="submit()"
                        ng-disabled="!data.shopname"
                        value="Open ShopFunnel App"/>

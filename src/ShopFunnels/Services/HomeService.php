@@ -34,6 +34,19 @@ class HomeService
     }
 
     /**
+     * Get current logged user name.
+     *
+     * @return mixed[]
+     */
+    public function getLoggedUser(): array
+    {
+        $currentUser = $this->userService->getLoggedUser();
+        $username = $currentUser->getFirstname().' '.$currentUser->getLastname();
+
+        return ['username' => $username];
+    }
+
+    /**
      * Check if store already had been authorized or not.
      *
      * @param string $storeName
@@ -44,7 +57,8 @@ class HomeService
         $count = $this->daoFactory->getStoreDao()->getValidStoresByName($storeName)->count();
         $success = $count > 0;
         if ($success) {
-            $this->saveWorkingStore($storeName);
+            $store = $this->daoFactory->getStoreDao()->getValidStoresByName($storeName)->toArray()[0];
+            $this->saveWorkingStore($store);
         }
 
         return $success;
@@ -61,21 +75,19 @@ class HomeService
     {
         $store = new Store($storeName, $accessToken);
         $this->daoFactory->getStoreDao()->save($store);
-        $this->saveWorkingStore($storeName);
+        $this->saveWorkingStore($store);
     }
 
     /**
      * Set working store of current logged user.
      *
-     * @param string $storeName
+     * @param Store $store
      * @return void
      */
-    public function saveWorkingStore(string $storeName): void
+    public function saveWorkingStore(Store $store): void
     {
-        $stores = $this->daoFactory->getStoreDao()->getValidStoresByName($storeName)->toArray();
-        $currentStore = $stores[0];
         $currentUser = $this->userService->getLoggedUser();
-        $currentUser->setWorkingStore($currentStore);
+        $currentUser->setWorkingStore($store);
         $this->daoFactory->getUserDao()->save($currentUser);
     }
 }

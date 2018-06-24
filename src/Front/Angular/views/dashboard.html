@@ -1,3 +1,191 @@
 <div ng-cloak ng-controller="DashboardController">
-    <h2>Dashboard</h2>
+    <div ng-if="state.loading">
+        <loader data-loader-style="loader-default" data-loader-text="'Loading...'"></loader>
+    </div>
+    <div ng-if="!state.loading">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="m-t-0">ShopFunnel</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <md-menu md-offset="4 36" class="pull-right" style="margin-top:10px;">
+                            <a class="button color-grey" ng-click="openMenu($mdMenu, $event)" style="padding-top:12px;padding-bottom:12px;"><i class="fa fa-user-circle m-r-1"></i>{{ data.username }}</a>
+                            <md-menu-content width="2" class="p-v-0">
+                                <md-menu-item>
+                                    <md-button ng-click="logout()">Sign out</md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                        <a class="button color-green pull-right m-r-1" ng-click="gotoHome()"><i class="fa fa-home m-r-1"></i>Home</a>
+                    </div>
+                </div>
+                <div class="row m-t-1 clear-both">
+                    <div class="col-md-12">
+                        <label class="pull-right">Working store : {{ data.shopname }}</label>
+                    </div>
+                </div>
+                <div class="row clear-both">
+                    <div class="col-md-12">
+                        <label class="pull-right">Webhook URL : http://dev.shopfunnelapp.com/api/webhook</label>
+                        <i class="fa fa-question-circle webhook-mark">
+                            <md-tooltip md-direction="bottom">
+                                The webhook is used to hook data from Click Funnels
+                            </md-tooltip>
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <uib-tabset active="tabIndex">
+                    <uib-tab heading="Dashboard" index="1">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="button color-light-grey pull-right" ng-click="refreshFunnelForms()"><i class="fa fa-refresh m-r-1"></i>Refresh</a>
+                                <a class="button color-green pull-right m-r-1" ng-click="addFunnelForm()"><i class="fa fa-plus m-r-1"></i>New product form</a>
+                            </div>
+                        </div>
+                        <table ng-table="funnelFormTable" class="table table-striped table-hover m-t-1">
+                            <tr ng-repeat="funnelForm in $data">
+                                <td data-title="'Name'" sortable="'name'">
+                                    {{ funnelForm.name }}
+                                </td>
+                                <td data-title="'Funnel Step'" class="nowrap">
+                                    <label ng-class="['color-label', {'color-purple': funnelForm.type.id == 1, 'color-blue': funnelForm.type.id == 2}]">{{ funnelForm.type.label }}</label>
+                                </td>
+                                <td data-title="'Embed Script'" class="nowrap">
+                                    <input id="embed_script_{{funnelForm.id}}" type="text" ng-model="funnelForm.script" class="form-control webhook-input"/>
+                                    <button class="clipboard-button" ngclipboard data-clipboard-target="#embed_script_{{funnelForm.id}}" ng-click="clipboardCopied()"><i class="fa fa-clipboard"></i></button>
+                                </td>
+                                <td data-title="'Loaded'" class="text-center">
+                                    <label ng-class="['color-label', {'color-green': funnelForm.loaded, 'color-red': !funnelForm.loaded}]">{{ funnelForm.loaded ? 'Yes' : 'No' }}</label>
+                                </td>
+                                <td data-title="'Updated'" class="nowrap">
+                                    {{ funnelForm.updatedAt }}
+                                </td>
+                                <td class="text-center nowrap">
+                                    <a class="button color-purple" ng-click="reloadFunnelForm(funnelForm)">Reload</a>
+                                    <a class="button color-grey" ng-click="openFunnelFormSettings(funnelForm)">Settings</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Orders" index="2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <md-nav-bar md-selected-nav-item="selectedOrderType" nav-bar-aria-label="order types">
+                                    <md-nav-item md-nav-click="seeOrdersByType('live')" name="live">
+                                        <i class="fa fa-bolt m-r-1"></i> Live
+                                    </md-nav-item>
+                                    <md-nav-item md-nav-click="seeOrdersByType('pending')" name="pending">
+                                        <i class="fa fa-clock-o m-r-1"></i> Pending
+                                    </md-nav-item>
+                                    <md-nav-item md-nav-click="seeOrdersByType('errors')" name="errors">
+                                        <i class="fa fa-bell m-r-1"></i> Errors
+                                    </md-nav-item>
+                                    <md-nav-item md-nav-click="seeOrdersByType('test')" name="test">
+                                        <i class="fa fa-bug m-r-1"></i> Test
+                                    </md-nav-item>
+                                    <md-nav-item md-nav-click="seeOrdersByType('archived')" name="archived">
+                                        <i class="fa fa-briefcase m-r-1"></i> Archived
+                                    </md-nav-item>
+                                    <a class="button color-light-grey pull-right" ng-click="refreshOrders()" style="position:absolute;right:0;"><i class="fa fa-refresh m-r-1"></i>Refresh</a>
+                                </md-nav-bar>
+                            </div>
+                        </div>
+                        <table ng-table="orderTable" class="table table-striped table-hover m-t-1">
+                            <tr ng-repeat="order in $data">
+                                <td data-title="'Order'" sortable="'number'">
+                                    #{{ order.number }}
+                                </td>
+                                <td data-title="'Customer'">
+                                    <label class="nowrap">{{ order.customer.name }}</label><br/>
+                                    <p class="nowrap">{{ order.customer.email }}</p>
+                                </td>
+                                <td data-title="'Status'" class="text-center nowrap">
+                                    <label ng-class="['color-label', {'color-blue': order.status.id == 1}]">{{ order.status.label }}</label>
+                                </td>
+                                <td data-title="'Total'" sortable="'price'">
+                                    <label ng-if="!order.price" class="color-label color-light-grey">Unavailable</label>
+                                    <p ng-if="order.price">{{ order.price }}</p>
+                                </td>
+                                <td data-title="'Products'" class="text-center" sortable="'quantity'">
+                                    {{ order.quantity }}
+                                </td>
+                                <td data-title="'Submitted'">
+                                    <label ng-class="['color-label', {'color-green': order.submitStatus.id == 1, 'color-red': order.submitStatus.id == 2, 'color-purple': order.submitStatus.id == 3}]">{{ order.submitStatus.label }}</label>
+                                </td>
+                                <td data-title="'Updated'" class="nowrap">
+                                    {{ order.updatedAt }}
+                                </td>
+                                <td class="text-center">
+                                    <a class="button color-grey" ng-click="openOrderDetails(order)">Details</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Products" index="3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="button color-light-grey pull-right" ng-click="refreshProducts()"><i class="fa fa-refresh m-r-1"></i>Refresh</a>
+                            </div>
+                        </div>
+                        <table ng-table="productTable" class="table table-striped table-hover m-t-1">
+                            <tr ng-repeat="product in $data">
+                                <td>
+                                    <img ng-src="{{product.image ? product.image.src : ''}}" alt="{{product.image ? product.image.alt : ''}}" height="100" width="100" ng-class="{'img-bordered': product.image.src}">
+                                </td>
+                                <td data-title="'Name'" sortable="'name'">
+                                    {{ product.name }}
+                                </td>
+                                <td data-title="'Updated'" class="nowrap">
+                                    {{ product.updatedAt }}
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Webhook Logs" index="4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <md-nav-bar md-selected-nav-item="selectedFormType" nav-bar-aria-label="webhook log types">
+                                    <md-nav-item md-nav-click="seeWebhookLogsByType('live')" name="live">
+                                        <i class="fa fa-bolt m-r-1"></i> Live
+                                    </md-nav-item>
+                                    <md-nav-item md-nav-click="seeWebhookLogsByType('test')" name="test">
+                                        <i class="fa fa-bug m-r-1"></i> Test
+                                    </md-nav-item>
+                                    <a class="button color-light-grey pull-right" ng-click="refreshWebhookLogs()" style="position:absolute;right:0;"><i class="fa fa-refresh m-r-1"></i>Refresh</a>
+                                </md-nav-bar>
+                            </div>
+                        </div>
+                        <table ng-table="webhookLogTable" class="table table-striped table-hover">
+                            <tr ng-repeat="log in $data">
+                                <td data-title="'Name'" sortable="'name'">
+                                    {{ log.name }}
+                                </td>
+                                <td data-title="'URL'" class="nowrap">
+                                    <input id="hook_url_{{log.id}}" type="text" ng-model="log.url" class="form-control webhook-input"/>
+                                    <button class="clipboard-button" ngclipboard data-clipboard-target="#hook_url_{{log.id}}" ng-click="clipboardCopied()"><i class="fa fa-clipboard"></i></button>
+                                </td>
+                                <td data-title="'Orders'" sortable="'orders'" class="text-center">
+                                    {{ log.orders }}
+                                </td>
+                                <td data-title="'Queued'" sortable="'queued'" class="text-center">
+                                    {{ log.queued }}
+                                </td>
+                                <td data-title="'Type'" class="text-center">
+                                    <label ng-class="['color-label', {'color-blue': log.type.id == 1, 'color-purple': log.type.id == 2}]">{{ log.type.label }}</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </uib-tab>
+                    <uib-tab heading="Settings" index="5">
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+    </div>
 </div>

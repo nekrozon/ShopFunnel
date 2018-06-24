@@ -7,6 +7,20 @@ ShopFunnelsApp.controller('HomeController', ['$scope', '$controller', 'HomeServi
 
         $scope.state.verified = false;
 
+        $scope.openMenu = function ($mdMenu, event) {
+            $mdMenu.open(event);
+        };
+
+        $scope.logout = function () {
+            window.location.href = rootUrl + 'login/logout';
+        }
+
+        $scope.loadData = function () {
+            HomeService.getLoggedUser().then(function (response) {
+                $scope.data.username = response.username;
+            });
+        }
+
         $scope.submit = function () {
             if ($scope.data.shopname) {
                 HomeService.verifyStore($scope.data.shopname).then(function (response) {
@@ -25,5 +39,7 @@ ShopFunnelsApp.controller('HomeController', ['$scope', '$controller', 'HomeServi
                 });
             }
         };
+
+        $scope.loadData();
     }
 ]);
