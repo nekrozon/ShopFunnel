@@ -100,4 +100,18 @@ class DashboardController
 
         return new JsonResponse($result);
     }
+
+    /**
+     * @URL("/api/get-orders")
+     * @Logged
+     * @GET
+     *
+     * @return JsonResponse
+     */
+    public function getOrdersAction(): JsonResponse
+    {
+        $result = $this->dashboardService->getOrders();
+
+        return new JsonResponse($result);
+    }
 }

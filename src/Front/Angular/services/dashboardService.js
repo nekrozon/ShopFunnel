@@ -31,5 +31,20 @@ ShopFunnelsApp.service('DashboardService', ['$q', '$http',
 
             return deferred.promise;
         };
+
+        this.getOrders = function () {
+            var deferred = $q.defer();
+
+            $http({
+                url: this.rootUrl + 'api/get-orders',
+                method: 'GET'
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (error) {
+                deferred.reject(error.data);
+            });
+
+            return deferred.promise;
+        };
     }
 ]);

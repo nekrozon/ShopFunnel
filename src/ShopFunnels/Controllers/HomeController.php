@@ -103,7 +103,7 @@ class HomeController
         $success = $this->homeService->verifyStore($shopname.'.myshopify.com');
         $authUri = null;
         if (!$success) {
-            $authUri = 'https://'.$shopname.'.myshopify.com/admin/oauth/authorize?client_id='.Constants::API_KEY.'&redirect_uri='.Constants::REDIRECT_URI.'&scope=read_products';
+            $authUri = 'https://'.$shopname.'.myshopify.com/admin/oauth/authorize?client_id='.Constants::API_KEY.'&redirect_uri='.Constants::REDIRECT_URI.'&scope=read_products,read_orders,write_orders';
         }
 
         return new JsonResponse(['authorized' => $success, 'authUri' => $authUri]);

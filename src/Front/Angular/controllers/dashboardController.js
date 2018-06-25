@@ -1,7 +1,7 @@
 'use strict';
 
-ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTableParams', 'DashboardService',
-    function ($scope, $controller, NgTableParams, DashboardService) {
+ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTableParams', 'DashboardService', 'ModalService',
+    function ($scope, $controller, NgTableParams, DashboardService, ModalService) {
 
         angular.extend(this, $controller('BaseController', {$scope: $scope}));
 
@@ -66,98 +66,6 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
                         updatedAt: '6/10/2018, 10:26:42 PM'
                     }
                 ];
-                $scope.data.orders = [
-                    {
-                        number: 182152,
-                        customer: {
-                            name: 'as',
-                            email: 'as@gmail.com'
-                        },
-                        status: {
-                            id: 1,
-                            label: 'Paid'
-                        },
-                        price: '254.90',
-                        quantity: 2,
-                        submitStatus: {
-                            id: 1,
-                            label: 'Yes'
-                        },
-                        updatedAt: '6/10/2018, 10:30:24 AM'
-                    },
-                    {
-                        number: 180773,
-                        customer: {
-                            name: 'AA',
-                            email: 'onefire2018@gmail.com'
-                        },
-                        status: {
-                            id: 1,
-                            label: 'Paid'
-                        },
-                        price: '209.92',
-                        quantity: 4,
-                        submitStatus: {
-                            id: 1,
-                            label: 'Yes'
-                        },
-                        updatedAt: '6/9/2018, 12:10:33 AM'
-                    },
-                    {
-                        number: 180322,
-                        customer: {
-                            name: 'Soft World',
-                            email: 'softworld783@gmail.com'
-                        },
-                        status: {
-                            id: 1,
-                            label: 'Paid'
-                        },
-                        price: null,
-                        quantity: 2,
-                        submitStatus: {
-                            id: 3,
-                            label: 'Pending'
-                        },
-                        updatedAt: '6/8/2018, 3:10:23 PM'
-                    },
-                    {
-                        number: 180217,
-                        customer: {
-                            name: 'Soft World',
-                            email: 'softworld783@gmail.com'
-                        },
-                        status: {
-                            id: 1,
-                            label: 'Paid'
-                        },
-                        price: '29.99',
-                        quantity: 2,
-                        submitStatus: {
-                            id: 1,
-                            label: 'Yes'
-                        },
-                        updatedAt: '6/8/2018, 1:15:38 PM'
-                    },
-                    {
-                        number: 179299,
-                        customer: {
-                            name: 'Ry',
-                            email: 'ohyea@gmail.com'
-                        },
-                        status: {
-                            id: 1,
-                            label: 'Paid'
-                        },
-                        price: '74.97',
-                        quantity: 2,
-                        submitStatus: {
-                            id: 1,
-                            label: 'Yes'
-                        },
-                        updatedAt: '6/7/2018, 2:40:27 PM'
-                    }
-                ];
                 $scope.data.webhookLogs = [
                     {
                         id: 1,
@@ -172,9 +80,9 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
                     }
                 ];
                 $scope.funnelFormTable.reload();
-                $scope.orderTable.reload();
                 $scope.webhookLogTable.reload();
                 if (response.success) {
+                    $scope.orderTable.reload();
                     $scope.productTable.reload();
                 } else {
                     toastr.error(response.errorMsg);
@@ -242,12 +150,46 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
             }
         });
 
+        $scope.refreshOrders = function () {
+            DashboardService.getOrders().then(function (response) {
+                if (response.success) {
+                    $scope.data.orders = response.orders;
+                    $scope.orderTable.reload();
+                } else {
+                    toastr.error(response.errorMsg);
+                }
+            });
+        };
+
         $scope.seeOrdersByType = function (type) {
 
         };
 
-        $scope.refreshOrders = function () {
+        $scope.openOrderDetails = function (order) {
+            if (!order.productsLoaded) {
+                for (var i in order.products) {
+                    for (var j in $scope.data.products) {
+                        if (order.products[i].id == $scope.data.products[j].id) {
+                            order.products[i].name = $scope.data.products[j].name;
+                            order.products[i].image = $scope.data.products[j].image;
+                            break;
+                        }
+                    }
+                }
+                order.productsLoaded = true;
+            }
 
+            var modal = ModalService.openGenericModal({
+                size: 'lg',
+                templateUrl: rootUrl + 'src/Front/Angular/views/modalTemplates/orderDetailModalTemplate.html',
+                controller: 'OrderDetailModalController',
+                data: {
+                    order: order
+                }
+            });
+
+            modal.result.then(function (response) {
+            });
         };
 
         // ************************ Orders tab methods *************************
