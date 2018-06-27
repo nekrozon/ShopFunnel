@@ -6,6 +6,36 @@ ShopFunnelsApp.controller('BaseController', ['$scope', 'orderByFilter', 'filterF
         $scope.data = {};
         $scope.state = {};
 
+        angular.element(document).ready(function() {
+            $("form").each(function() {
+                $(this).validate({
+                    rules: {
+                        email: {
+                            overwrittenEmail: true,
+                            email: false
+                        }
+                    },
+                    showErrors: function (errorMap, errorList) {
+                        $.each(this.successList, function (index, value) {
+                            return $(value).popover("hide");
+                        });
+
+                        $.each(errorList, function (index, value) {
+                            var _popover;
+                            _popover = $(value.element).popover({
+                                trigger: "manual",
+                                placement: "bottom",
+                                content: value.message,
+                                template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\"><p></p></div></div></div>"
+                            });
+                            _popover.data("bs.popover").options.content = value.message;
+                            return $(value.element).popover("show");
+                        });
+                    }
+                });
+            });
+        });
+
         $scope.filterRows = function (rows, filters, params) {
             if (typeof rows == 'undefined') {
                 return [];

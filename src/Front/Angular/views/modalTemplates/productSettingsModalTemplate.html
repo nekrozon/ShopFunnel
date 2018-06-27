@@ -1,0 +1,158 @@
+<div class="modal-header">
+    <h3>Product Settings</h2>
+    <button type="button" class="close modal-close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+</div>
+<form name="form">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6" style="border-right:solid 1px #ddd;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             ng-class="{'has-error': form.clickFunnelName.$invalid && state.submitted}">
+                            <label for="clickFunnelName">Click Funnels Product (Must Match Exactly)<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="clickFunnelName" name="clickFunnelName" placeholder="Funnel Form Name"
+                                   required
+                                   ng-model="data.product.clickFunnelName" />
+                        </div>
+                        <p>This is your Click Funnels product name that will be matched to the Shopify product.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Custom Product Name (Line 1)</label>
+                            <input type="text" class="form-control" placeholder="Custom Product Name Line 1"
+                                   ng-model="data.product.customNameLine1" />
+                        </div>
+                        <p>Change the way your Shopify product is displayed in your funnel.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Custom Product Name (Line 2)</label>
+                            <input type="text" class="form-control" placeholder="Custom Product Name Line 2"
+                                   ng-model="data.product.customNameLine2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Min Quantity</label>
+                            <input type="number" class="form-control"
+                                   ng-model="data.product.minQuantity" />
+                        </div>
+                        <p>Minimum quantity for the product.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Max Quantity</label>
+                            <input type="number" class="form-control"
+                                   ng-model="data.product.maxQuantity" />
+                        </div>
+                        <p>Limit the maximum quantity allowed.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Expand Variants</label>
+                            <md-switch class="md-primary" ng-model="data.product.expandVariants" aria-label="expand variants"></md-switch>
+                        </div>
+                        <p>Should the variant options be expanded on page load?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             ng-class="{'has-error': form.variantType.$invalid && state.submitted}">
+                            <label for="variantType">Primary Variant<span class="text-danger">*</span></label>
+                            <select class="form-control" name="variantType" id="variantType"
+                                  required
+                                  ng-model="data.product.variantType"
+                                  ng-options="
+                                     type as type.label for type
+                                     in data.static.variantTypes
+                                     track by type.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <p>Choose the variant to display beside the purchased product.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             ng-class="{'has-error': form.variantModelStyle.$invalid && state.submitted}">
+                            <label for="variantModelStyle">Variant Style for: Model<span class="text-danger">*</span></label>
+                            <select class="form-control" name="variantModelStyle" id="variantModelStyle"
+                                  required
+                                  ng-model="data.product.variantModelStyle"
+                                  ng-options="
+                                     style as style.label for style
+                                     in data.static.variantStyles
+                                     track by style.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             ng-class="{'has-error': form.variantColorStyle.$invalid && state.submitted}">
+                            <label for="variantColorStyle">Variant Style for: Color<span class="text-danger">*</span></label>
+                            <select class="form-control" name="variantColorStyle" id="variantColorStyle"
+                                  required
+                                  ng-model="data.product.variantColorStyle"
+                                  ng-options="
+                                     style as style.label for style
+                                     in data.static.variantStyles
+                                     track by style.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             ng-class="{'has-error': form.variantSizeStyle.$invalid && state.submitted}">
+                            <label for="variantSizeStyle">Variant Style for: Size<span class="text-danger">*</span></label>
+                            <select class="form-control" name="variantSizeStyle" id="variantSizeStyle"
+                                  required
+                                  ng-model="data.product.variantSizeStyle"
+                                  ng-options="
+                                     style as style.label for style
+                                     in data.static.variantStyles
+                                     track by style.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Formatted Price</label>
+                            <input type="text" class="form-control"
+                                   ng-model="data.product.formattedPrice" />
+                        </div>
+                        <p>How should we display the price? Examples: $14.97, FREE + Shipping</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="button color-black pull-left" ng-click="delete()" style="display:inline-block;">Delete Product</a>
+        <a class="button color-grey pull-right" ng-click="close()">Close</a>
+        <a class="button color-purple pull-right m-r-1" ng-click="submit(form)">Update</a>
+    </div>
+</form>

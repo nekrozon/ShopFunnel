@@ -1,0 +1,2 @@
+CREATE TABLE funnel_form_types (id INT NOT NULL, `label` VARCHAR(20) NOT NULL COLLATE utf8_unicode_ci, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
+INSERT INTO funnel_form_types VALUES (1, 'Custom Order Form'), (2, 'Two Step Order Form');

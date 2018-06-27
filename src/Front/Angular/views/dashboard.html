@@ -54,14 +54,14 @@
                                     {{ funnelForm.name }}
                                 </td>
                                 <td data-title="'Funnel Step'" class="nowrap">
-                                    <label ng-class="['color-label', {'color-purple': funnelForm.type.id == 1, 'color-blue': funnelForm.type.id == 2}]">{{ funnelForm.type.label }}</label>
+                                    <label ng-class="['color-label', {'color-purple': funnelForm.type.id == data.static.constants.funnelFormTypeEnum.CUSTOM_FORM, 'color-blue': funnelForm.type.id == data.static.constants.funnelFormTypeEnum.TWO_STEP_FORM}]">{{ getFormTypeLabel(funnelForm.type.id) }}</label>
                                 </td>
                                 <td data-title="'Embed Script'" class="nowrap">
-                                    <input id="embed_script_{{funnelForm.id}}" type="text" ng-model="funnelForm.script" class="form-control webhook-input"/>
+                                    <input id="embed_script_{{funnelForm.id}}" type="text" ng-model="funnelForm.scriptUri" class="form-control webhook-input"/>
                                     <button class="clipboard-button" ngclipboard data-clipboard-target="#embed_script_{{funnelForm.id}}" ng-click="clipboardCopied()"><i class="fa fa-clipboard"></i></button>
                                 </td>
                                 <td data-title="'Loaded'" class="text-center">
-                                    <label ng-class="['color-label', {'color-green': funnelForm.loaded, 'color-red': !funnelForm.loaded}]">{{ funnelForm.loaded ? 'Yes' : 'No' }}</label>
+                                    <label ng-class="['color-label', {'color-green': funnelForm.scriptLoaded, 'color-red': !funnelForm.scriptLoaded}]">{{ funnelForm.scriptLoaded ? 'Yes' : 'No' }}</label>
                                 </td>
                                 <td data-title="'Updated'" class="nowrap">
                                     {{ funnelForm.updatedAt }}

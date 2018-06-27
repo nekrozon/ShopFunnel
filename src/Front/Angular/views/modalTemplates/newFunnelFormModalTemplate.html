@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h3>New Funnel Form</h2>
+    <button type="button" class="close modal-close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+</div>
+<form name="form">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error': form.name.$invalid && state.submitted}">
+                    <label for="name">Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Funnel Form Name"
+                           required
+                           ng-model="data.funnelForm.name" />
+                </div>
+                <p>This is the unique name of your funnel form. It is only used to identify it within ShopFunnel.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error': form.type.$invalid && state.submitted}">
+                    <label for="type">Funnel Type<span class="text-danger">*</span></label>
+                    <select class="form-control" name="type" id="type"
+                          required
+                          ng-model="data.funnelForm.type"
+                          ng-options="
+                             type as type.label for type
+                             in data.formTypes
+                             track by type.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <p>Dynamic funnel forms are specific to the type of page they will be used on. Where will your form be used?</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="button color-grey pull-right" ng-click="close()">Close</a>
+        <a class="button color-purple pull-right m-r-1" ng-click="submit(form)">Create</a>
+    </div>
+</form>

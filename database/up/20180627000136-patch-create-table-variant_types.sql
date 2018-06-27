@@ -1,0 +1,2 @@
+CREATE TABLE variant_types (id INT NOT NULL, `label` VARCHAR(5) NOT NULL COLLATE utf8_unicode_ci, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
+INSERT INTO variant_types VALUES (1, 'None'), (2, 'Model'), (3, 'Color'), (4, 'Size');

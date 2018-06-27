@@ -1,0 +1,2 @@
+CREATE TABLE product_types (id INT NOT NULL, `label` VARCHAR(10) NOT NULL COLLATE utf8_unicode_ci, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
+INSERT INTO product_types VALUES (1, 'Standard'), (2, 'Shipping');

@@ -9,63 +9,6 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
             $scope.state.loading = true;
             DashboardService.getInitData().then(function (response) {
                 $scope.data = response;
-                $scope.data.funnelForms = [
-                    {
-                        id: 1,
-                        name: 'Midnight Point Coder - Need a Break Tee',
-                        type: {
-                            id: 1,
-                            label: 'Custom form'
-                        },
-                        script: '<script src="http://dev.shopfunnelapp.com/scripts/8815692601616000161.js"></script>',
-                        loaded: true,
-                        updatedAt: '6/7/2018, 4:28:07 PM'
-                    },
-                    {
-                        id: 2,
-                        name: 'Midnight Point Coder - Need a Break Tee - Legacy',
-                        type: {
-                            id: 1,
-                            label: 'Custom form'
-                        },
-                        script: '<script src="http://dev.shopfunnelapp.com/scripts/8815692601616000161.js"></script>',
-                        loaded: true,
-                        updatedAt: '6/10/2018, 10:21:33 PM'
-                    },
-                    {
-                        id: 3,
-                        name: 'Test custom form by krunal',
-                        type: {
-                            id: 1,
-                            label: 'Custom form'
-                        },
-                        script: '<script src="http://dev.shopfunnelapp.com/scripts/8815692601616000161.js"></script>',
-                        loaded: false,
-                        updatedAt: '6/10/2018, 10:27:33 PM'
-                    },
-                    {
-                        id: 4,
-                        name: 'Test form by Krunal',
-                        type: {
-                            id: 2,
-                            label: 'Two step form'
-                        },
-                        script: '<script src="http://dev.shopfunnelapp.com/scripts/8815692601616000161.js"></script>',
-                        loaded: false,
-                        updatedAt: '6/10/2018, 10:27:08 PM'
-                    },
-                    {
-                        id: 5,
-                        name: 'Tst Funnel',
-                        type: {
-                            id: 1,
-                            label: 'Custom form'
-                        },
-                        script: '<script src="http://dev.shopfunnelapp.com/scripts/8815692601616000161.js"></script>',
-                        loaded: true,
-                        updatedAt: '6/10/2018, 10:26:42 PM'
-                    }
-                ];
                 $scope.data.webhookLogs = [
                     {
                         id: 1,
@@ -79,9 +22,9 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
                         }
                     }
                 ];
-                $scope.funnelFormTable.reload();
                 $scope.webhookLogTable.reload();
                 if (response.success) {
+                    $scope.funnelFormTable.reload();
                     $scope.orderTable.reload();
                     $scope.productTable.reload();
                 } else {
@@ -124,7 +67,18 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
         };
 
         $scope.openFunnelFormSettings = function (funnelForm) {
+            var modal = ModalService.openGenericModal({
+                size: 'md',
+                templateUrl: rootUrl + 'src/Front/Angular/views/modalTemplates/funnelFormSettingsModalTemplate.html',
+                controller: 'FunnelFormSettingsModalController',
+                data: {
+                    funnelForm: funnelForm,
+                    static: $scope.data.static
+                }
+            });
 
+            modal.result.then(function (response) {
+            });
         };
 
         $scope.refreshFunnelForms = function () {
@@ -132,7 +86,37 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
         };
 
         $scope.addFunnelForm = function () {
+            var modal = ModalService.openGenericModal({
+                size: 'md',
+                templateUrl: rootUrl + 'src/Front/Angular/views/modalTemplates/newFunnelFormModalTemplate.html',
+                controller: 'NewFunnelFormModalController',
+                data: {
+                    formTypes: [
+                        {
+                            id: 1,
+                            label: 'Custom Order Form'
+                        },
+                        {
+                            id: 2,
+                            label: 'Two Step Order Form'
+                        }
+                    ]
+                }
+            });
 
+            modal.result.then(function (response) {
+            });
+        };
+
+        $scope.getFormTypeLabel = function (typeId) {
+            var label = '-';
+            if (typeId == $scope.data.static.constants.funnelFormTypeEnum.CUSTOM_FORM) {
+                label = 'Custom Form';
+            } else if (typeId == $scope.data.static.constants.funnelFormTypeEnum.TWO_STEP_FORM) {
+                label = 'Two Step Form';
+            }
+
+            return label;
         };
 
         // ********************* Product forms tab methods *********************

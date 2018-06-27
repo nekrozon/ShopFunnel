@@ -1,0 +1,3 @@
+CREATE TABLE funnel_form_product (funnel_form_id INT NOT NULL, product_id INT NOT NULL, INDEX idx_funnel_form_product_form (funnel_form_id), INDEX idx_funnel_form_product_product (product_id), PRIMARY KEY(funnel_form_id, product_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
+ALTER TABLE funnel_form_product ADD CONSTRAINT fk_funnel_form_product_form FOREIGN KEY (funnel_form_id) REFERENCES funnel_forms (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE funnel_form_product ADD CONSTRAINT fk_funnel_form_product_product FOREIGN KEY (product_id) REFERENCES products (id) ON UPDATE NO ACTION ON DELETE NO ACTION;

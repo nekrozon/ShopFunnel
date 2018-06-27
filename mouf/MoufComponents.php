@@ -1478,10 +1478,16 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
     ),
     'setterBinds' => 
     array (
+      'setFunnelFormTypeDao' => 'funnelFormTypeDao',
+      'setFunnelFormDao' => 'funnelFormDao',
+      'setProductTypeDao' => 'productTypeDao',
+      'setProductDao' => 'productDao',
       'setRoleDao' => 'roleDao',
       'setRoleRightDao' => 'roleRightDao',
       'setStoreDao' => 'storeDao',
       'setUserDao' => 'userDao',
+      'setVariantStyleDao' => 'variantStyleDao',
+      'setVariantTypeDao' => 'variantTypeDao',
     ),
     'weak' => false,
     'comment' => '',
@@ -1694,7 +1700,448 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
       ),
       4 => 
       array (
-        'value' => 'Add working_store_id field',
+        'value' => 'add working_store_id field',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180626235802-patch-create-table-product_types' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180626235802-patch-create-table-product_types',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180626235802-patch-create-table-product_types.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180626235802-patch-create-table-product_types.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create product_types table and add data',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180627000136-patch-create-table-variant_types' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180627000136-patch-create-table-variant_types',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180627000136-patch-create-table-variant_types.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180627000136-patch-create-table-variant_types.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create variant_types table and add data',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180627000450-patch-create-table-variant_styles' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180627000450-patch-create-table-variant_styles',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180627000450-patch-create-table-variant_styles.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180627000450-patch-create-table-variant_styles.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create variant_styles table and add data',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180627003816-patch-create-table-products' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180627003816-patch-create-table-products',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180627003816-patch-create-table-products.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180627003816-patch-create-table-products.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create table products',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180627004209-patch-create-table-funnel_form_types' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180627004209-patch-create-table-funnel_form_types',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180627004209-patch-create-table-funnel_form_types.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180627004209-patch-create-table-funnel_form_types.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create funnel_form_types table',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180627005305-patch-create-table-funnel_forms' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180627005305-patch-create-table-funnel_forms',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180627005305-patch-create-table-funnel_forms.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180627005305-patch-create-table-funnel_forms.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create table funnel_forms',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      5 => 
+      array (
+        'value' => 'patch.default_type',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'dbpatch.0c9c-20180627011952-patch-create-table-funnel_form_product' => 
+  array (
+    'class' => 'Mouf\\Database\\Patcher\\DatabasePatch',
+    'external' => false,
+    'weak' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'patchConnection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      1 => 
+      array (
+        'value' => '0c9c-20180627011952-patch-create-table-funnel_form_product',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      2 => 
+      array (
+        'value' => 'database/up/20180627011952-patch-create-table-funnel_form_product.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      3 => 
+      array (
+        'value' => 'database/down/20180627011952-patch-create-table-funnel_form_product.sql',
+        'parametertype' => 'primitive',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+      4 => 
+      array (
+        'value' => 'create table funnel_form_product',
         'parametertype' => 'primitive',
         'type' => 'string',
         'metadata' => 
@@ -1757,7 +2204,7 @@ return new \\Doctrine\\Common\\Annotations\\CachedReader($reader, $container->ge
       ),
       4 => 
       array (
-        'value' => '',
+        'value' => 'create table stores',
         'parametertype' => 'primitive',
         'type' => 'string',
         'metadata' => 
@@ -2058,6 +2505,40 @@ return $driver;
       1 => 
       array (
         'value' => 'cascadingLanguageDetection',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'funnelFormDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\FunnelFormDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'funnelFormTypeDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\FunnelFormTypeDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
         'parametertype' => 'object',
         'type' => 'string',
         'metadata' => 
@@ -2833,6 +3314,47 @@ return $driver;
         0 => 'Mouf\\Security\\Migrations\\CreateUserRoleRightPatch',
         1 => 'dbpatch.88fa-20180620020538-patch-create-table-stores',
         2 => 'dbpatch.0c9c-20180622223923-patch-alter-table-users',
+        3 => 'dbpatch.0c9c-20180626235802-patch-create-table-product_types',
+        4 => 'dbpatch.0c9c-20180627000136-patch-create-table-variant_types',
+        5 => 'dbpatch.0c9c-20180627000450-patch-create-table-variant_styles',
+        6 => 'dbpatch.0c9c-20180627003816-patch-create-table-products',
+        7 => 'dbpatch.0c9c-20180627004209-patch-create-table-funnel_form_types',
+        8 => 'dbpatch.0c9c-20180627005305-patch-create-table-funnel_forms',
+        9 => 'dbpatch.0c9c-20180627011952-patch-create-table-funnel_form_product',
+      ),
+    ),
+  ),
+  'productDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\ProductDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'productTypeDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\ProductTypeDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
       ),
     ),
   ),
@@ -3491,6 +4013,40 @@ return rtrim(sys_get_temp_dir(), \'/\\\\\').\'/mouftwigtemplatemain_\'.$posixGet
       ),
     ),
   ),
+  'variantStyleDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\VariantStyleDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
+  'variantTypeDao' => 
+  array (
+    'class' => 'ShopFunnels\\Dao\\VariantTypeDao',
+    'external' => false,
+    'constructor' => 
+    array (
+      0 => 
+      array (
+        'value' => 'tdbmService',
+        'parametertype' => 'object',
+        'type' => 'string',
+        'metadata' => 
+        array (
+        ),
+      ),
+    ),
+  ),
   'whoopsMiddleware' => 
   array (
     'class' => 'Middlewares\\Whoops',
@@ -4005,6 +4561,55 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	/**
 	 * @return Mouf\Database\Patcher\DatabasePatch
 	 */
+	 public static function getDbpatch_0c9c20180626235802patchcreatetableproduct_types() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180626235802-patch-create-table-product_types');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180627000136patchcreatetablevariant_types() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180627000136-patch-create-table-variant_types');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180627000450patchcreatetablevariant_styles() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180627000450-patch-create-table-variant_styles');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180627003816patchcreatetableproducts() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180627003816-patch-create-table-products');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180627004209patchcreatetablefunnel_form_types() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180627004209-patch-create-table-funnel_form_types');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180627005305patchcreatetablefunnel_forms() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180627005305-patch-create-table-funnel_forms');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
+	 public static function getDbpatch_0c9c20180627011952patchcreatetablefunnel_form_product() {
+	 	return MoufManager::getMoufManager()->get('dbpatch.0c9c-20180627011952-patch-create-table-funnel_form_product');
+	 }
+
+	/**
+	 * @return Mouf\Database\Patcher\DatabasePatch
+	 */
 	 public static function getDbpatch_88fa20180620020538patchcreatetablestores() {
 	 	return MoufManager::getMoufManager()->get('dbpatch.88fa-20180620020538-patch-create-table-stores');
 	 }
@@ -4091,6 +4696,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getForgotYourPasswordTranslator() {
 	 	return MoufManager::getMoufManager()->get('forgotYourPasswordTranslator');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\FunnelFormDao
+	 */
+	 public static function getFunnelFormDao() {
+	 	return MoufManager::getMoufManager()->get('funnelFormDao');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\FunnelFormTypeDao
+	 */
+	 public static function getFunnelFormTypeDao() {
+	 	return MoufManager::getMoufManager()->get('funnelFormTypeDao');
 	 }
 
 	/**
@@ -4245,6 +4864,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getPatchService() {
 	 	return MoufManager::getMoufManager()->get('patchService');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\ProductDao
+	 */
+	 public static function getProductDao() {
+	 	return MoufManager::getMoufManager()->get('productDao');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\ProductTypeDao
+	 */
+	 public static function getProductTypeDao() {
+	 	return MoufManager::getMoufManager()->get('productTypeDao');
 	 }
 
 	/**
@@ -4441,6 +5074,20 @@ return rtrim(sys_get_temp_dir(), '/\\').'/mouftwigtemplatemain_'.$posixGetuid.st
 	 */
 	 public static function getUserService() {
 	 	return MoufManager::getMoufManager()->get('userService');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\VariantStyleDao
+	 */
+	 public static function getVariantStyleDao() {
+	 	return MoufManager::getMoufManager()->get('variantStyleDao');
+	 }
+
+	/**
+	 * @return ShopFunnels\Dao\VariantTypeDao
+	 */
+	 public static function getVariantTypeDao() {
+	 	return MoufManager::getMoufManager()->get('variantTypeDao');
 	 }
 
 	/**

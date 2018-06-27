@@ -3,6 +3,10 @@
 namespace ShopFunnels\Services;
 
 use ShopFunnels\Dao\Generated\DaoFactory;
+use ShopFunnels\Enumerations\FunnelFormTypeEnum;
+use ShopFunnels\Enumerations\ProductTypeEnum;
+use ShopFunnels\Enumerations\VariantTypeEnum;
+use ShopFunnels\Enumerations\VariantStyleEnum;
 use Mouf\Security\UserService\UserService;
 use PHPShopify\ShopifySDK;
 use TheCodingMachine\TDBM\TDBMException;
@@ -47,8 +51,9 @@ class DashboardService
         $username = $currentUser->getFirstname().' '.$currentUser->getLastname();
         $workingStore = $currentUser->getWorkingStore();
         $noErrors = true;
-        $products = [];
+        $funnelForms = $this->getSerializedFunnelForms();
         $orders = [];
+        $products = [];
 
         if ($workingStore->getValid()) {
             $shopName = $workingStore->getName();
@@ -93,10 +98,37 @@ class DashboardService
             'success' => $noErrors,
             'username' => $username,
             'shopname' => $shopName,
+            'funnelForms' => $funnelForms,
             'products' => $products,
             'orders' => $orders,
             'errorMsg' => $errorMsg,
+            'static' => $this->getStaticData()
         ];
+
+        return $result;
+    }
+
+    /**
+     * Get serialized funnel forms.
+     *
+     * @return mixed[]
+     */
+    public function getSerializedFunnelForms(): array
+    {
+        $result = [];
+        $funnelForms = $this->daoFactory->getFunnelFormDao()->findAll()->toArray();
+        foreach ($funnelForms as $form) {
+            $item = $form->jsonSerialize();
+            $item['updatedAt'] = $form->getUpdatedAt()->format('n/j/Y, g:i:s A');
+            $item['products'] = [];
+            $products = $form->getProducts();
+            foreach ($products as $product) {
+                $productData = $product->jsonSerialize();
+                unset($productData['funnelForms']);
+                $item['products'][] = $productData;
+            }
+            $result[] = $item;
+        }
 
         return $result;
     }
@@ -293,6 +325,29 @@ class DashboardService
               $result['message'] = ExceptionMessages::UNKOWN_FRONT;
             }
         }
+
+        return $result;
+    }
+
+    /**
+     * Get all static data.
+     *
+     * @return mixed[]
+     */
+    public function getStaticData(): array
+    {
+        $result = [
+            'constants' => [
+                'funnelFormTypeEnum' => FunnelFormTypeEnum::toArray(),
+                'productTypeEnum' => ProductTypeEnum::toArray(),
+                'variantTypeEnum' => VariantTypeEnum::toArray(),
+                'variantStyleEnum' => VariantStyleEnum::toArray(),
+            ],
+            'funnelFormTypes' => $this->daoFactory->getFunnelFormTypeDao()->findAll()->toArray(),
+            'productTypes' => $this->daoFactory->getProductTypeDao()->findAll()->toArray(),
+            'variantTypes' => $this->daoFactory->getVariantTypeDao()->findAll()->toArray(),
+            'variantStyles' => $this->daoFactory->getVariantStyleDao()->findAll()->toArray(),
+        ];
 
         return $result;
     }

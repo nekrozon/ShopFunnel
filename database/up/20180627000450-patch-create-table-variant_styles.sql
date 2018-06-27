@@ -1,0 +1,2 @@
+CREATE TABLE variant_styles (id INT NOT NULL, `label` VARCHAR(20) NOT NULL COLLATE utf8_unicode_ci, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB;
+INSERT INTO variant_styles VALUES (1, 'Dropdown'), (2, 'Horizontal Radio'), (3, 'Vertical Radio'), (4, 'Thumbnail'), (5, 'Thumbnail With Label');

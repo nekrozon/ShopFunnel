@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <h3>Funnel Form Settings</h2>
+    <button type="button" class="close modal-close" ng-click="close()" data-dismiss="modal" aria-hidden="true">&times;</button>
+</div>
+<form name="form">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group"
+                     ng-class="{'has-error': form.name.$invalid && state.submitted}">
+                    <label for="name">Name<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Funnel Form Name"
+                           required
+                           ng-model="data.funnelForm.name" />
+                </div>
+                <p>This is the unique name of your funnel form. It is only used to identify it within ShopFunnel.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Override the Purchase Button Label</label>
+                    <input type="text" class="form-control" placeholder="Purchase"
+                           ng-model="data.funnelForm.purchaseButtonLabel" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Override the Show Variants Button Label</label>
+                    <input type="text" class="form-control" placeholder="Choose"
+                           ng-model="data.funnelForm.showVariantsButtonLabel" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Override the Hide Variants Button Label</label>
+                    <input type="text" class="form-control" placeholder="Close"
+                           ng-model="data.funnelForm.hideVariantsButtonLabel" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Display Order Total</label>
+                    <md-switch class="md-primary" ng-model="data.funnelForm.showOrderTotal" aria-label="show order total"></md-switch>
+                </div>
+                <p>Should your order form display the order total under the purchased products?</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Reload on Product Update</label>
+                    <md-switch class="md-primary" ng-model="data.funnelForm.reloadOnProductChange" aria-label="reload on product change"></md-switch>
+                </div>
+                <p>Should your form be auto-reloaded when we receive an update from Shopify regarding one of the form products?</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="button color-blue pull-left" ng-click="manageProducts()" style="display:inline-block;">Manage Products</a>
+        <a class="button color-black pull-left m-l-1" ng-click="deleteFunnelForm()" style="display:inline-block;">Delete</a>
+        <a class="button color-grey pull-right" ng-click="close()">Close</a>
+        <a class="button color-purple pull-right m-r-1" ng-click="submit(form)">Update</a>
+    </div>
+</form>
