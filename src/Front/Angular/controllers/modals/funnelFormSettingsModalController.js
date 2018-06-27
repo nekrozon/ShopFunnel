@@ -12,7 +12,7 @@ ShopFunnelsApp.controller('FunnelFormSettingsModalController', ['$scope', '$cont
 
         $scope.manageProducts = function () {
             var modal = ModalService.openGenericModal({
-                size: 'md',
+                size: 'lg',
                 templateUrl: rootUrl + 'src/Front/Angular/views/modalTemplates/manageProductsModalTemplate.html',
                 controller: 'ManageProductsModalController',
                 data: {

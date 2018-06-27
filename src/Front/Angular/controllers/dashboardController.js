@@ -91,16 +91,7 @@ ShopFunnelsApp.controller('DashboardController', ['$scope', '$controller', 'NgTa
                 templateUrl: rootUrl + 'src/Front/Angular/views/modalTemplates/newFunnelFormModalTemplate.html',
                 controller: 'NewFunnelFormModalController',
                 data: {
-                    formTypes: [
-                        {
-                            id: 1,
-                            label: 'Custom Order Form'
-                        },
-                        {
-                            id: 2,
-                            label: 'Two Step Order Form'
-                        }
-                    ]
+                    static: $scope.data.static
                 }
             });
 

@@ -6,8 +6,16 @@ ShopFunnelsApp.controller('NewFunnelFormModalController', ['$scope', '$controlle
         angular.extend(this, $controller('BaseController', {$scope: $scope}));
 
         $scope.data = {
-            formTypes: data.formTypes
+            funnelForm: {},
+            static: data.static
         };
+
+        for (var i in $scope.data.static.funnelFormTypes) {
+            if ($scope.data.static.funnelFormTypes[i].id == $scope.data.static.constants.funnelFormTypeEnum.CUSTOM_FORM) {
+                $scope.data.funnelForm.type = $scope.data.static.funnelFormTypes[i];
+                break;
+            }
+        }
 
         $scope.submit = function (form) {
             $scope.state.submitted = true;
