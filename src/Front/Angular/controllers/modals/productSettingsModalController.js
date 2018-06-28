@@ -1,7 +1,7 @@
 'use strict';
 
-ShopFunnelsApp.controller('ProductSettingsModalController', ['$scope', '$controller', 'data', '$uibModalInstance',
-    function($scope, $controller, data, $uibModalInstance) {
+ShopFunnelsApp.controller('ProductSettingsModalController', ['$scope', '$controller', 'data', '$uibModalInstance', 'DashboardService', 'ModalService',
+    function($scope, $controller, data, $uibModalInstance, DashboardService, ModalService) {
 
         angular.extend(this, $controller('BaseController', {$scope: $scope}));
 
@@ -16,12 +16,24 @@ ShopFunnelsApp.controller('ProductSettingsModalController', ['$scope', '$control
             $("form").valid();
 
             if (!form.$invalid) {
-                $uibModalInstance.close();
+                DashboardService.updateProduct($scope.data.product).then(function (response) {
+                    toastr.success('Product Update Success');
+                    $uibModalInstance.close();
+                });
             }
         };
 
         $scope.delete = function () {
-            $uibModalInstance.close();
+            var modal = ModalService.openConfirmModal('Confirm Delete', 'Do you want to delete this product?', 'Confirm', 'Cancel', 'sm');
+
+            modal.result.then(function (response) {
+                if (response) {
+                    DashboardService.deleteProduct($scope.data.product.id).then(function (response) {
+                        toastr.success('Product Delete Success');
+                        $uibModalInstance.close(true);
+                    });
+                }
+            });
         };
 
         $scope.close = function() {

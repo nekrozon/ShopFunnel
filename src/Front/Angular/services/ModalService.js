@@ -1,11 +1,11 @@
 ShopFunnelsApp.service('ModalService', ['$uibModal', '$timeout', '$http', '$sce',
     function($uibModal, $timeout, $http, $sce) {
 
-        this.openConfirmModal = function(modalTemplate, modalTitle, modalMessage, modalConfirmButtonText, modalCancelButtonText, size) {
+        this.openConfirmModal = function(modalTitle, modalMessage, modalConfirmButtonText, modalCancelButtonText, size) {
             return $uibModal.open({
                 'animation': true,
                 'size': size,
-                'templateUrl': modalTemplate,
+                'templateUrl': rootUrl + 'src/Front/Angular/views/modalTemplates/confirmTemplate.html',
                 'controller': function($scope, $uibModalInstance) {
 
                     $scope.title = modalTitle;

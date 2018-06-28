@@ -88,6 +88,21 @@ class DashboardController
     }
 
     /**
+     * @URL("/api/get-forms")
+     * @Logged
+     * @GET
+     *
+     * @return JsonResponse
+     */
+    public function getFormsAction(): JsonResponse
+    {
+        $forms = $this->dashboardService->getSerializedFunnelForms();
+        $result = ['success' => true, 'funnelForms' => $forms];
+
+        return new JsonResponse($result);
+    }
+
+    /**
      * @URL("/api/get-products")
      * @Logged
      * @GET
@@ -111,6 +126,96 @@ class DashboardController
     public function getOrdersAction(): JsonResponse
     {
         $result = $this->dashboardService->getOrders();
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/create-form")
+     * @Logged
+     * @POST
+     *
+     * @param mixed[] $formData
+     * @return JsonResponse
+     */
+    public function createFormAction(array $formData): JsonResponse
+    {
+        $result = $this->dashboardService->createForm($formData);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/delete-form/{formId}")
+     * @Logged
+     * @DELETE
+     *
+     * @param int $formId
+     * @return JsonResponse
+     */
+    public function deleteFormAction(int $formId): JsonResponse
+    {
+        $result = $this->dashboardService->deleteForm($formId);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/update-form")
+     * @Logged
+     * @POST
+     *
+     * @param mixed[] $formData
+     * @return JsonResponse
+     */
+    public function updateFormAction(array $formData): JsonResponse
+    {
+        $result = $this->dashboardService->updateForm($formData);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/delete-product/{productId}")
+     * @Logged
+     * @DELETE
+     *
+     * @param int $productId
+     * @return JsonResponse
+     */
+    public function deleteProductAction(int $productId): JsonResponse
+    {
+        $result = $this->dashboardService->deleteProduct($productId);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/update-product")
+     * @Logged
+     * @POST
+     *
+     * @param mixed[] $productData
+     * @return JsonResponse
+     */
+    public function updateProductAction(array $productData): JsonResponse
+    {
+        $result = $this->dashboardService->updateProduct($productData);
+
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @URL("/api/get-form-products/{formId}")
+     * @Logged
+     * @GET
+     *
+     * @param int $formId
+     * @return JsonResponse
+     */
+    public function getFormProductsAction(int $formId): JsonResponse
+    {
+        $result = $this->dashboardService->getFormProducts($formId);
 
         return new JsonResponse($result);
     }

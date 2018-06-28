@@ -1,14 +1,15 @@
 'use strict';
 
-ShopFunnelsApp.controller('ManageProductsModalController', ['$scope', '$controller', 'data', '$uibModalInstance', 'NgTableParams', 'ModalService',
-    function($scope, $controller, data, $uibModalInstance, NgTableParams, ModalService) {
+ShopFunnelsApp.controller('ManageProductsModalController', ['$scope', '$controller', 'data', '$uibModalInstance', 'NgTableParams', 'ModalService', 'DashboardService',
+    function($scope, $controller, data, $uibModalInstance, NgTableParams, ModalService, DashboardService) {
 
         angular.extend(this, $controller('BaseController', {$scope: $scope}));
 
         $scope.data = {
             formId: data.formId,
             products: data.products,
-            static: data.static
+            static: data.static,
+            productsChanged: false
         };
 
         $scope.productTable = new NgTableParams({
@@ -34,6 +35,8 @@ ShopFunnelsApp.controller('ManageProductsModalController', ['$scope', '$controll
             });
 
             modal.result.then(function (response) {
+                $scope.data.productsChanged = true;
+                $scope.refreshProductTable();
             });
         };
 
@@ -49,11 +52,34 @@ ShopFunnelsApp.controller('ManageProductsModalController', ['$scope', '$controll
             });
 
             modal.result.then(function (response) {
+                if (response) {
+                    $scope.data.productsChanged = true;
+                    $scope.refreshProductTable();
+                }
+            });
+        };
+
+        $scope.refreshProductTable = function () {
+            DashboardService.getFormProducts($scope.data.formId).then(function (response) {
+                if (response.success) {
+                    $scope.data.products = response.products;
+                    $scope.productTable.reload();
+                } else {
+                    toastr.error(response.errorMsg);
+                }
             });
         };
 
         $scope.close = function() {
-            $uibModalInstance.dismiss();
+            $uibModalInstance.close($scope.data.productsChanged);
         };
+
+        $scope.$on('modal.closing', function (event, reason, closed) {
+            if (!closed && $scope.state.editing && (reason == 'backdrop click' || reason == 'escape key press')) {
+                event.preventDefault();
+
+                $uibModalInstance.close($scope.data.productsChanged);
+            }
+        });
     }
 ]);

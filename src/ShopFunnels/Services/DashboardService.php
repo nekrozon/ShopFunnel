@@ -2,17 +2,19 @@
 
 namespace ShopFunnels\Services;
 
+use ShopFunnels\Classes\ExceptionMessages;
+use ShopFunnels\Classes\ErrorCodes;
 use ShopFunnels\Dao\Generated\DaoFactory;
 use ShopFunnels\Enumerations\FunnelFormTypeEnum;
 use ShopFunnels\Enumerations\ProductTypeEnum;
 use ShopFunnels\Enumerations\VariantTypeEnum;
 use ShopFunnels\Enumerations\VariantStyleEnum;
+use ShopFunnels\Model\FunnelForm;
 use Mouf\Security\UserService\UserService;
-use PHPShopify\ShopifySDK;
-use TheCodingMachine\TDBM\TDBMException;
 use PHPShopify\Exception\ApiException;
-use ShopFunnels\Classes\ExceptionMessages;
-use ShopFunnels\Classes\ErrorCodes;
+use PHPShopify\ShopifySDK;
+use Ramsey\Uuid\Uuid;
+use TheCodingMachine\TDBM\TDBMException;
 
 /**
  * DashboardService Class
@@ -119,6 +121,7 @@ class DashboardService
         $funnelForms = $this->daoFactory->getFunnelFormDao()->findAll()->toArray();
         foreach ($funnelForms as $form) {
             $item = $form->jsonSerialize();
+            $item['scriptUri'] = '<script src="http://dev.shopfunnelapp.com/scripts/'.$item['scriptUri'].'"></script>';
             $item['updatedAt'] = $form->getUpdatedAt()->format('n/j/Y, g:i:s A');
             $item['products'] = [];
             $products = $form->getProducts();
@@ -348,6 +351,130 @@ class DashboardService
             'variantTypes' => $this->daoFactory->getVariantTypeDao()->findAll()->toArray(),
             'variantStyles' => $this->daoFactory->getVariantStyleDao()->findAll()->toArray(),
         ];
+
+        return $result;
+    }
+
+    /**
+     * Create new funnel form.
+     *
+     * @param mixed[] $formData
+     * @return mixed[]
+     */
+    public function createForm(array $formData): array
+    {
+        $formType = $this->daoFactory->getFunnelFormTypeDao()->getById($formData['type']['id']);
+        $formName = $formData['name'];
+        $form = new FunnelForm($formType, $formName);
+        $scriptName = (string) Uuid::uuid1();
+        $form->setScriptUri($scriptName);
+        $this->daoFactory->getFunnelFormDao()->save($form);
+
+        return ['success' => 'true'];
+    }
+
+    /**
+     * Delete funnel form.
+     *
+     * @param int $formId
+     * @return mixed[]
+     */
+    public function deleteForm(int $formId): array
+    {
+        $formDao = $this->daoFactory->getFunnelFormDao();
+        $form = $formDao->getById($formId);
+        $formDao->delete($form);
+
+        return ['success' => 'true'];
+    }
+
+    /**
+     * Update funnel form.
+     *
+     * @param mixed[] $formData
+     * @return mixed[]
+     */
+    public function updateForm(array $formData): array
+    {
+        $formDao = $this->daoFactory->getFunnelFormDao();
+        $form = $formDao->getById($formData['id']);
+        $form->setName($formData['name']);
+        $form->setPurchaseButtonLabel(empty($formData['purchaseButtonLabel']) ? null : $formData['purchaseButtonLabel']);
+        $form->setShowVariantsButtonLabel(empty($formData['showVariantsButtonLabel']) ? null : $formData['showVariantsButtonLabel']);
+        $form->setHideVariantsButtonLabel(empty($formData['hideVariantsButtonLabel']) ? null : $formData['hideVariantsButtonLabel']);
+        $form->setShowOrderTotal($formData['showOrderTotal']);
+        $form->setReloadOnProductChange($formData['reloadOnProductChange']);
+        $form->setUpdatedAt(new \DateTimeImmutable());
+        $formDao->save($form);
+
+        return ['success' => 'true'];
+    }
+
+    /**
+     * Delete product.
+     *
+     * @param int $productId
+     * @return mixed[]
+     */
+    public function deleteProduct(int $productId): array
+    {
+        $productDao = $this->daoFactory->getProductDao();
+        $product = $productDao->getById($productId);
+        $productDao->delete($product);
+
+        return ['success' => 'true'];
+    }
+
+    /**
+     * Update product.
+     *
+     * @param mixed[] $productData
+     * @return mixed[]
+     */
+    public function updateProduct(array $productData): array
+    {
+        $productDao = $this->daoFactory->getProductDao();
+        $variantTypeDao = $this->daoFactory->getVariantTypeDao();
+        $variantStyleDao = $this->daoFactory->getVariantStyleDao();
+
+        $product = $productDao->getById($productData['id']);
+        $product->setClickFunnelName($productData['clickFunnelName']);
+        $product->setCustomNameLine1(empty($productData['customNameLine1']) ? null : $productData['customNameLine1']);
+        $product->setCustomNameLine2(empty($productData['customNameLine2']) ? null : $productData['customNameLine2']);
+        $product->setMinQuantity($productData['minQuantity']);
+        $product->setMaxQuantity($productData['maxQuantity']);
+        $product->setExpandVariants($productData['expandVariants']);
+        $product->setMaxQuantity($productData['maxQuantity']);
+        $product->setMaxQuantity($productData['maxQuantity']);
+        $product->setVariantType($variantTypeDao->getById($productData['variantType']['id']));
+        $product->setVariantModelStyle($variantStyleDao->getById($productData['variantModelStyle']['id']));
+        $product->setVariantColorStyle($variantStyleDao->getById($productData['variantColorStyle']['id']));
+        $product->setVariantSizeStyle($variantStyleDao->getById($productData['variantSizeStyle']['id']));
+        $product->setFormattedPrice(empty($productData['formattedPrice']) ? null : $productData['formattedPrice']);
+        $product->setUpdatedAt(new \DateTimeImmutable());
+
+        $productDao->save($product);
+
+        return ['success' => 'true'];
+    }
+
+    /**
+     * Get form products.
+     *
+     * @param int $formId
+     * @return mixed[]
+     */
+    public function getFormProducts(int $formId): array
+    {
+        $result = ['success' => true, 'products' => []];
+
+        $form = $this->daoFactory->getFunnelFormDao()->getById($formId);
+        $products = $form->getProducts();
+        foreach ($products as $product) {
+            $productData = $product->jsonSerialize();
+            unset($productData['funnelForms']);
+            $result['products'][] = $productData;
+        }
 
         return $result;
     }

@@ -1,7 +1,7 @@
 'use strict';
 
-ShopFunnelsApp.controller('NewFunnelFormModalController', ['$scope', '$controller', 'data', '$uibModalInstance',
-    function($scope, $controller, data, $uibModalInstance) {
+ShopFunnelsApp.controller('NewFunnelFormModalController', ['$scope', '$controller', 'data', '$uibModalInstance', 'DashboardService',
+    function($scope, $controller, data, $uibModalInstance, DashboardService) {
 
         angular.extend(this, $controller('BaseController', {$scope: $scope}));
 
@@ -23,7 +23,10 @@ ShopFunnelsApp.controller('NewFunnelFormModalController', ['$scope', '$controlle
             $("form").valid();
 
             if (!form.$invalid) {
-                $uibModalInstance.close();
+                DashboardService.createForm($scope.data.funnelForm).then(function (response) {
+                    toastr.success('Funnel Form Creation Success');
+                    $uibModalInstance.close();
+                });
             }
         };
 
