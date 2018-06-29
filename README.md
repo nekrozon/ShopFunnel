@@ -31,4 +31,4 @@ APP DASHBOARD:
 On the app dashboard, the user can see already created product forms, or create a new product form.
 
 The other navigation options are:
-Orders
+Orders <- This shows orders received from Shopify, and their status of being sent to shopify as an order
