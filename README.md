@@ -29,3 +29,12 @@ After user clicks allow, they are redirected to the app dashboard.
 
 APP DASHBOARD:
 On the app dashboard, the user can see already created product forms, or create a new product form.
+
+The other navigation options are:
+
+-Orders: This shows orders received from Shopify, and their status of being sent to shopify as an order
+     
+-Products <- All Products From Shopify Store Displayed (Or Only Products Added from a Dynamic Form?)
+-Webhook Logs <- Shows 
+
+/le sigh - turned into an error found looking in logs .. imagine that!
