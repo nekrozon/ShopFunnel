@@ -9,3 +9,7 @@ There is a backend dashboard that is protected with a login.
 The first step is you are prompted for a store name.  The user enters a storename (storename.myshopify.com is the format to find your store name).
 
 The app then looks up the store name, and sees if there is an entry in its DB.
+
+IF store DOESN't EXIST:
+
+
