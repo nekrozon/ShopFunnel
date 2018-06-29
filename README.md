@@ -16,4 +16,6 @@ Redirect to shopify login for THAT STORE
 
 User then logs in using their shopify store credentials.
 
+They are then prompted with an OAuth permissions screen.
+
 
