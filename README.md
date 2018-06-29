@@ -32,8 +32,7 @@ On the app dashboard, the user can see already created product forms, or create 
 
 The other navigation options are:
 
--Orders
-     |_This shows orders received from Shopify, and their status of being sent to shopify as an order
+-Orders: This shows orders received from Shopify, and their status of being sent to shopify as an order
      
 -Products <- All Products From Shopify Store Displayed (Or Only Products Added from a Dynamic Form?)
 -Webhook Logs <- Shows 
