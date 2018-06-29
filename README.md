@@ -10,7 +10,10 @@ The first step is you are prompted for a store name.  The user enters a storenam
 
 The app then looks up the store name, and sees if there is an entry in its DB.
 
-IF store DOESN't EXIST:
+IF store DOES EXIST, and has granted permissions:
+GOTO APP DASHBOARD
+
+IF store DOESN'T EXIST:
 
 Redirect to shopify login for THAT STORE
 
@@ -22,3 +25,7 @@ Permissions Asked for are:
 
 
 After user clicks allow, they are redirected to the app dashboard.
+
+
+APP DASHBOARD:
+On the app dashboard, the user can see already created product forms, or create a new product form.
