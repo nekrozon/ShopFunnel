@@ -6,4 +6,4 @@ When an order is placed on clickfunnels, a webhook is sent to the app and it pro
 
 There is a backend dashboard that is protected with a login.
 
-The first step is you are prompted for a store name.
+The first step is you are prompted for a store name.  The user enters a storename (storename.myshopify.com is the format to find your store name).
