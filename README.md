@@ -18,4 +18,7 @@ User then logs in using their shopify store credentials.
 
 They are then prompted with an OAuth permissions screen.
 
+Permissions Asked for are:
 
+
+After user clicks allow, they are redirected to the app dashboard.
