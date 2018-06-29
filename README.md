@@ -31,3 +31,4 @@ APP DASHBOARD:
 On the app dashboard, the user can see already created product forms, or create a new product form.
 
 The other navigation options are:
+Orders
