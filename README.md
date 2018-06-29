@@ -13,3 +13,7 @@ The app then looks up the store name, and sees if there is an entry in its DB.
 IF store DOESN't EXIST:
 
 Redirect to shopify login for THAT STORE
+
+User then logs in using their shopify store credentials.
+
+
